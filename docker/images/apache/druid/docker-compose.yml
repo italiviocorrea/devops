@@ -1,0 +1,84 @@
+version: "3"
+
+services:
+
+  postgres:
+    image: postgres:9.2
+    container_name: postgres
+    environment:
+      - POSTGRES_PASSWORD=senha#123
+
+  zookeeper:
+    container_name: zookeeper
+    image: icorrea/zookeeper:3.4.13-alpine3.8
+    environment:
+      - ZOO_MY_ID=1
+      - ZOO_SERVERS=zookeeper
+
+  overlord:
+    image: icorrea/apache-druid:0.12.3-alpine3.8
+    environment:
+      - DRUID_XMX=1g
+      - DRUID_XMS=1g
+      - DRUID_MAXNEWSIZE=250m
+      - DRUID_NEWSIZE=250m
+    volumes:
+      - ~/srv/druid/segments:/var/druid/segments
+      - ~/srv/druid/indexing-logs:/var/druid/indexing-logs
+    command:
+      - overlord
+
+  coordinator:
+    image: icorrea/apache-druid:0.12.3-alpine3.8
+    environment:
+      - DRUID_XMX=1g
+      - DRUID_XMS=1g
+      - DRUID_MAXNEWSIZE=250m
+      - DRUID_NEWSIZE=250m
+    volumes:
+      - ~/srv/druid/segments:/var/druid/segments
+      - ~/srv/druid/indexing-logs:/var/druid/indexing-logs
+    command:
+      - coordinator
+
+
+  middlemanager:
+    image: icorrea/apache-druid:0.12.3-alpine3.8
+    environment:
+      - DRUID_XMX=1g
+      - DRUID_XMS=1g
+      - DRUID_MAXNEWSIZE=250m
+      - DRUID_NEWSIZE=250m
+    volumes:
+      - ~/srv/druid/segments:/var/druid/segments
+      - ~/srv/druid/indexing-logs:/var/druid/indexing-logs
+    command:
+      - middleManager
+
+  historical:
+    image: icorrea/apache-druid:0.12.3-alpine3.8
+    environment:
+      - DRUID_XMX=1g
+      - DRUID_XMS=1g
+      - DRUID_MAXNEWSIZE=250m
+      - DRUID_NEWSIZE=250m
+    volumes:
+      - ~/srv/druid/segments:/var/druid/segments
+      - ~/srv/druid/indexing-logs:/var/druid/indexing-logs
+    command:
+      - historical
+
+  broker:
+    image: icorrea/apache-druid:0.12.3-alpine3.8
+    environment:
+      - DRUID_XMX=1g
+      - DRUID_XMS=1g
+      - DRUID_MAXNEWSIZE=250m
+      - DRUID_NEWSIZE=250m
+    volumes:
+      - ~/srv/druid/segments:/var/druid/segments
+      - ~/srv/druid/indexing-logs:/var/druid/indexing-logs
+    command:
+      - broker
+
+
