@@ -3,6 +3,21 @@ FROM icorrea/python:3.6.7-alpine3.8
 # Superset version
 ARG SUPERSET_VERSION=0.28.1
 
+# Superset setup options
+ENV SUP_ROW_LIMIT 5000
+ENV SUP_WEBSERVER_THREADS 10
+ENV SUP_WEBSERVER_PORT 8088
+ENV SUP_WEBSERVER_TIMEOUT 120
+ENV SUP_SECRET_KEY 'senha#123'
+ENV SUP_META_DB_URI "sqlite:///${SUPERSET_HOME}/superset.db"
+
+# admin auth details
+ENV ADMIN_USERNAME admin
+ENV ADMIN_FIRST_NAME admin
+ENV ADMIN_LAST_NAME user
+ENV ADMIN_EMAIL admin@nowhere.com
+ENV ADMIN_PWD superset
+
 # Add superset_config.py folder to PYTHONPATH so superset could find it.
 ENV PYTHONPATH=/etc/superset:$PYTHONPATH \
     SUPERSET_HOME=/opt/superset \
