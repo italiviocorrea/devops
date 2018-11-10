@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+
+  sonarqube:
+    image: icorrea/sonarqube:7.4-alpine3.8
+    ports:
+      - "9000:9000"
+    restart: on-failure
+    networks:
+      - sonarnet
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
+    volumes:
+      - ~/srv/sonarqube/data74:/opt/sonarqube/data
+
+  db:
+    image: icorrea/postgresql:10-alpine3.8
+    networks:
+      - sonarnet
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - ~/srv/sonarqube/postgresql_data74:/var/lib/postgresql/data
+
+networks:
+  sonarnet:
+    external: true
+
+#volumes:
+#  sonarqube_conf:
+#  sonarqube_data:
+#  sonarqube_extensions:
+#  sonarqube_bundled-plugins:
+#  postgresql:
+#  postgresql_data:
+
