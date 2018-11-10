@@ -1,0 +1,44 @@
+version: '3.5'
+
+services:
+
+  master:
+    image: icorrea/spark:2.3.2-alpine3.8
+    command: bin/spark-class org.apache.spark.deploy.master.Master -h master
+    networks:
+      - spark_cfmt_net
+    environment:
+      MASTER: spark://master:7077
+      SPARK_CONF_DIR: /conf
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 1g
+    ports:
+      - 4040:4040
+      - 6066:6066
+      - 7077:7077
+      - 8090:8080
+
+  worker:
+    image: icorrea/spark:2.3.2-alpine3.8
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
+    networks:
+      - spark_cfmt_net
+    environment:
+      SPARK_CONF_DIR: /conf
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 1g
+    depends_on:
+      - master
+
+  zeppelin:
+    image: icorrea/zeppelin:0.8.0-ubuntu
+    networks:
+      - spark_cfmt_net
+    volumes:
+      - ~/srv/zeppelin-note:/zeppelin/notebook
+    ports:
+      - 8080:8080
+
+networks:
+  spark_cfmt_net:
+    external: true

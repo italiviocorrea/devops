@@ -30,10 +30,17 @@ RUN adduser -S -H superset && \
         cyrus-sasl-dev \
         g++ \
         gcc \
+        freetds \
+        freetds-dev \
+        unixodbc-dev \
+        unixodbc \
+        mariadb-dev \ 
         libffi-dev \
         libressl-dev \
         musl-dev \
         postgresql-dev \
+        krb5-libs \
+        krb5 \
         python3-dev && \
     apk add --no-cache libpq && \
     pip3 install --no-cache-dir --no-build-isolation \
@@ -42,7 +49,14 @@ RUN adduser -S -H superset && \
     pip3 install --no-cache-dir --no-build-isolation \
         gevent==1.2.2 \
         psycopg2==2.7.4 \
+        Cython \
+        pymssql \
+        mysqlclient==1.3.13 \
         redis==2.10.6 \
+        pyhive==0.5.1 \
+        impala==0.2 \
+        thrift_sasl==0.2.1 \
+        sasl \
         superset==${SUPERSET_VERSION} && \
     apk del .meta-build-dependencies && \
     find / -type d -name __pycache__ -exec rm -r {} + && \
