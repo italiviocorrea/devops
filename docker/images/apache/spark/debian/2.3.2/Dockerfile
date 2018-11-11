@@ -5,13 +5,12 @@ ENV PYTHONIOENCODING UTF-8
 ENV PIP_DISABLE_PIP_VERSION_CHECK 1
 
 # JAVA
-ARG JAVA_MAJOR_VERSION=8
-ARG JAVA_UPDATE_VERSION=191
-ARG JAVA_BUILD_NUMBER=12
-ENV JAVA_HOME /usr/jdk1.${JAVA_MAJOR_VERSION}.0_${JAVA_UPDATE_VERSION}
+ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
+ENV PATH $PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
 
-ENV PATH $PATH:$JAVA_HOME/bin
-ADD jdk-8u191-linux-x64.tar.gz /usr/
+RUN apt-get install -y --no-install-recommends \
+      openjdk-8-jre-headless \
+      ca-certificates-java
 
 RUN ln -s $JAVA_HOME /usr/java \
     && rm -rf $JAVA_HOME/man

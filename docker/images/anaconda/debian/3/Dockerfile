@@ -1,4 +1,4 @@
-FROM icorrea/debian:jessie-slim
+FROM icorrea/debian:stretch-slim
 
 #  $ docker run --rm -it icorrea/anaconda3:5.3.0-debian-slim /bin/bash
 #  $ docker push icorrea/anaconda3:5.3.0-debian-slim
