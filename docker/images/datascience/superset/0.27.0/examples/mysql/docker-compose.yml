@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+
+  redis:
+    image: redis
+    restart: always
+    volumes:
+      - ~/srv/sefa-superset/redis:/data
+    networks:
+      - superset_net
+
+  mysql:
+    image: mysql:5
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: superset
+      MYSQL_DATABASE: superset
+      MYSQL_USER: superset
+      MYSQL_PASSWORD: superset
+    networks:
+      - superset_net
+    volumes:
+      - ~/srv/sefa-superset/mysql:/var/lib/mysql
+
+  superset:
+    image: repo.ms.gov.br/sgi/devops/apache-superset:0.27.0-debian
+    restart: always
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - "8088:8088"
+    networks:
+      - superset_net
+
+networks:
+  superset_net:
+    external: true
+

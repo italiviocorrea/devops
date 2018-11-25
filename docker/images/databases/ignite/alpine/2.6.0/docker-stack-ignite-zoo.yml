@@ -1,0 +1,101 @@
+version: '3.7'
+
+services:
+
+  ign-zk1:
+    image: icorrea/zookeeper:3.4.13-alpine3.8
+    hostname: ign-zk1
+    networks:
+      - ignite-net
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=ign-zk1:2888:3888 server.2=ign-zk2:2888:3888 server.3=ign-zk3:2888:3888 
+    volumes:
+      - ~/srv/zookeeper/1/data:/data
+      - ~/srv/zookeeper/1/datalog:/datalog
+
+  ign-zk2:
+    image: icorrea/zookeeper:3.4.13-alpine3.8
+    hostname: ign-zk2
+    networks:
+      - ignite-net
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=ign-zk1:2888:3888 server.2=ign-zk2:2888:3888 server.3=ign-zk3:2888:3888 
+    volumes:
+      - ~/srv/zookeeper/2/data:/data
+      - ~/srv/zookeeper/2/datalog:/datalog
+
+  ign-zk3:
+    image: icorrea/zookeeper:3.4.13-alpine3.8
+    hostname: ign-zk3
+    networks:
+      - ignite-net
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=ign-zk1:2888:3888 server.2=ign-zk2:2888:3888 server.3=ign-zk3:2888:3888 
+    volumes:
+      - ~/srv/zookeeper/3/data:/data
+      - ~/srv/zookeeper/3/datalog:/datalog
+
+  ignite-0:
+    image: icorrea/apache-ignite:2.6.0-alpine
+    depends_on:
+      - ign-zk1
+      - ign-zk2
+      - ign-zk3
+    networks:
+      - ignite-net
+    # Exposing ports for inter cluster communication
+    expose:
+      - 11211   
+      - 47100
+      - 47500
+      - 49112
+      - 10800
+    ports:
+      - "10800:10800"
+    volumes:
+      - ~/srv/ignite/n0-data:/opt/apache-ignite/work/db
+
+  ignite-1:
+    image: icorrea/apache-ignite:2.6.0-alpine
+    depends_on:
+      - ignite-0
+    networks:
+      - ignite-net
+    # Exposing ports for inter cluster communication
+    expose:
+      - 11211   
+      - 47100
+      - 47500
+      - 49112
+      - 10800
+    ports:
+      - "10801:10800"
+    volumes:
+      - ~/srv/ignite/n1-data:/opt/apache-ignite/work/db
+
+  ignite-2:
+    image: icorrea/apache-ignite:2.6.0-alpine
+    depends_on:
+      - ignite-0
+      - ignite-1
+    networks:
+      - ignite-net
+    # Exposing ports for inter cluster communication
+    expose:
+      - 11211   
+      - 47100
+      - 47500
+      - 49112
+      - 10800
+    ports:
+      - "10802:10800"
+    volumes:
+      - ~/srv/ignite/n2-data:/opt/apache-ignite/work/db
+
+networks:
+  ignite-net:
+    external: true
+

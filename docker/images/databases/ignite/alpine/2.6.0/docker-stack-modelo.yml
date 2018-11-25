@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+
+  ignite-master:
+    image: icorrea/apache-ignite:2.6.0-alpine
+    networks:
+      - ignite-net
+    # Exposing ports for inter cluster communication
+    expose:
+      - 11211   
+      - 47100
+      - 47500
+      - 49112
+      - 10800
+    ports:
+      - "10800:10800"
+    volumes:
+      - ~/srv/ignite/nmdata:/opt/apache-ignite/work/db
+
+  ignite-1:
+    image: icorrea/apache-ignite:2.6.0-alpine
+    depends_on:
+      - ignite-master
+    networks:
+      - ignite-net
+    # Exposing ports for inter cluster communication
+    expose:
+      - 11211   
+      - 47100
+      - 47500
+      - 49112
+      - 10800
+    ports:
+      - "10801:10800"
+    volumes:
+      - ~/srv/ignite/n1data:/opt/apache-ignite/work/db
+
+  ignite-2:
+    image: icorrea/apache-ignite:2.6.0-alpine
+    depends_on:
+      - ignite-master
+      - ignite-1
+    networks:
+      - ignite-net
+    # Exposing ports for inter cluster communication
+    expose:
+      - 11211   
+      - 47100
+      - 47500
+      - 49112
+      - 10800
+    ports:
+      - "10802:10800"
+    volumes:
+      - ~/srv/ignite/n2data:/opt/apache-ignite/work/db
+
+networks:
+  ignite-net:
+#    driver: overlay
+    external: true

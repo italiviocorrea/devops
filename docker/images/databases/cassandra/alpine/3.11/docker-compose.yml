@@ -1,0 +1,74 @@
+version: "3"
+
+services:
+
+  cassandra-1:
+    image: icorrea/cassandra:3.11-alpine3.8
+    networks:
+      - cassandra-net
+    environment:
+      - CASSANDRA_CLUSTER_NAME= cluster_1
+      - CASSANDRA_SEEDS=cassandra-1,cassandra-2,cassandra-3
+      - CASSANDRA_START_RPC=true
+      - CASSANDRA_RPC_ADDRESS="0.0.0.0"
+      - CASSANDRA_BROADCAST_ADDRESS=cassandra-1
+      - CASSANDRA_LISTEN_ADDRESS=cassandra-1
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=200M
+    volumes:
+      - ~/srv/cassandra/dfedata1:/usr/local/apache-cassandra-3.11.3
+
+  cassandra-2:
+    image: icorrea/cassandra:3.11-alpine3.8
+    networks:
+      - cassandra-net
+    environment:
+      - CASSANDRA_CLUSTER_NAME= cluster_1
+      - CASSANDRA_SEEDS=cassandra-1,cassandra-2,cassandra-3
+      - CASSANDRA_START_RPC=true
+      - CASSANDRA_RPC_ADDRESS="0.0.0.0"
+      - CASSANDRA_BROADCAST_ADDRESS=cassandra-2
+      - CASSANDRA_LISTEN_ADDRESS=cassandra-2
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=200M
+    volumes:
+      - ~/srv/cassandra/data2:/usr/local/apache-cassandra-3.11.3
+    depends_on:
+      - cassandra-1
+
+  cassandra-3:
+    image: icorrea/cassandra:3.11-alpine3.8
+    networks:
+      - cassandra-net
+    environment:
+      - CASSANDRA_CLUSTER_NAME= cluster_1
+      - CASSANDRA_SEEDS=cassandra-1,cassandra-2,cassandra-3
+      - CASSANDRA_START_RPC=true
+      - CASSANDRA_RPC_ADDRESS="0.0.0.0"
+      - CASSANDRA_BROADCAST_ADDRESS=cassandra-3
+      - CASSANDRA_LISTEN_ADDRESS=cassandra-3
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=200M
+    volumes:
+      - ~/srv/cassandra/data3:/usr/local/apache-cassandra-3.11.3
+    depends_on:
+      - cassandra-2
+
+  # A web based interface for managing your docker containers.
+  portainer:
+    image: icorrea/portainer:1.19.2-alpine
+#    command: --templates http://templates/templates.json
+    networks:
+      - cassandra-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/srv/cassandra/portainer-data:/data
+    # Enable you to access potainers web interface from your host machine
+    # using http://localhost:10001
+    ports:
+      - "10001:9000"
+
+networks:
+  cassandra-net:
+    external: true
+

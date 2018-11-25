@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+
+<script src="http://www.templates.sgi.ms.gov.br/cabecalho-institucional/js/cabecalho-institucional.js"></script>
+<script src="http://www.templates.sgi.ms.gov.br/paginas-de-erro/js/pagina-nao-encontrada.js"></script>
+
+</head>
+
+<body>
+	
+<div id="titulo-da-pagina"><p>Página não encontrada</p></div>
+
+	<div id="alerta">
+		<p>Não foi possível encontrar a página:</p>
+	</div>
+
+	<div id="url-acessada">
+		<p> http://*/ </p>
+	</div>
+
+	<div id="informacao">
+
+		<p>A página solicitada não foi encontrada, mas pode estar disponível novamente mais tarde.</p>
+		<p>Possíveis causas:</p>
+		<p>
+			<ul>
+				<li><b>Talvez haja um erro de digitação no endereço. Verifique se o endereço está digitado corretamente.</b></li>
+				<li>Falha na conexão;</li>
+				<li>A página não existe mais;</li>
+				<li>Página fora do ar temporariamente;</li>
+			</ul>
+		</p>
+		
+	</div>
+
+</body>
+</html>

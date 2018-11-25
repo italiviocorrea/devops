@@ -1,5 +1,7 @@
 FROM centos:7
 
+LABEL maintainer="Italivio Correa <italiviocorrea@gmail.com>"
+
 ENV LANG=pt_BR.UTF-8
 
 RUN yum -y install ntp && \

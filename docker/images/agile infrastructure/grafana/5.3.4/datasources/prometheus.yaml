@@ -1,0 +1,13 @@
+apiVersion: 1
+
+deleteDatasources:
+  - name: Prometheus
+
+datasources:
+- name: Prometheus
+  type: prometheus
+  access: direct
+  url: http://suporte.sgi.ms.gov.br/monitor/
+  isDefault: true
+  version: 1
+  editable: true

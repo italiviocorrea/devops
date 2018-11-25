@@ -1,0 +1,78 @@
+version: '3.5'
+
+services:
+
+  master:
+    image: icorrea/spark:2.3.2-alpine3.8
+    command: bin/spark-class org.apache.spark.deploy.master.Master -h master
+    networks:
+      - spark_cfmt_net
+    environment:
+      MASTER: spark://master:7077
+      SPARK_CONF_DIR: /conf
+      SPARK_WORKER_CORES: 1
+      SPARK_WORKER_MEMORY: 1g
+    ports:
+      - 4040:4040
+      - 6066:6066
+      - 7077:7077
+      - 8090:8080
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.backend=sparkdfe"
+        - "traefik.backend.loadbalancer.sticky=true"
+        - "traefik.frontend.rule=PathPrefix:/sparkdfe"
+        - "traefik.enable=true"
+        - "traefik.port=8080"
+      placement:
+        constraints: 
+          - node.label.region == sup
+
+  worker:
+    image: icorrea/spark:2.3.2-alpine3.8
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
+    networks:
+      - spark_cfmt_net
+    environment:
+      SPARK_CONF_DIR: /conf
+      SPARK_WORKER_CORES: 1
+      SPARK_WORKER_MEMORY: 1g
+    depends_on:
+      - master
+    deploy:
+      replicas: 2
+      labels:
+        - "traefik.enable=false"
+      placement:
+        constraints: 
+          - node.label.region == sup
+
+  zeppelin:
+    image: icorrea/zeppelin:0.8.0-ubuntu
+    environment:
+      - ZEPPELIN_LOG_DIR=/zeppelin/logs
+      - ZEPPELIN_NOTEBOOK_DIR=/zeppelin/notebook
+      - ZEPPELIN_SERVER_CONTEXT_PATH=/zeppelin
+    networks:
+      - spark_cfmt_net
+    volumes:
+      - ~/srv/zeppelin/conf:/zeppelin/conf
+      - ~/srv/zeppelin/notebook:/zeppelin/notebook
+    ports:
+      - 8080:8080
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.backend=zeppelin"
+        - "traefik.backend.loadbalancer.sticky=true"
+        - "traefik.frontend.rule=PathPrefix:/zeppelin"
+        - "traefik.enable=true"
+        - "traefik.port=8080"
+      placement:
+        constraints: 
+          - node.label.region == sup
+
+networks:
+  spark_cfmt_net:
+    external: true

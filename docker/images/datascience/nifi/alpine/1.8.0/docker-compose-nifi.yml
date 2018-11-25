@@ -1,0 +1,160 @@
+version: "3"
+
+services:
+
+  dfe-zk-1:
+    image: icorrea/zookeeper:3.4.13-alpine3.8
+    hostname: dfe-zk-1
+    networks:
+      - dfe_stack_net
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=dfe-zk-2:2888:3888  server.3=dfe-zk-3:2888:3888
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == dfe-zk-1
+    volumes:
+      - ~/srv/dfe/zk-1/data:/data
+      - ~/srv/dfe/zk-1/datalog:/datalog
+
+  dfe-zk-2:
+    image: icorrea/zookeeper:3.4.13-alpine3.8
+    hostname: dfe-zk-2
+    networks:
+      - dfe_stack_net
+    depends_on:
+      - dfe-zk-1
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=dfe-zk-1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=dfe-zk-3:2888:3888
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == dfe-zk-2
+    volumes:
+      - ~/srv/dfe/zk-2/data:/data
+      - ~/srv/dfe/zk-2/datalog:/datalog
+
+  dfe-zk-3:
+    image: icorrea/zookeeper:3.4.13-alpine3.8
+    hostname: dfe-zk-3
+    networks:
+      - dfe_stack_net
+    depends_on:
+      - dfe-zk-2
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=dfe-zk-1:2888:3888 server.2=dfe-zk-2:2888:3888 server.3=0.0.0.0:2888:3888
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == dfe-zk-3
+    volumes:
+      - ~/srv/dfe/zk-3/data:/data
+      - ~/srv/dfe/zk-3/datalog:/datalog
+
+  dfe-nifi-registry:
+    image: icorrea/nifi-registry:0.3.0-alpine3.8
+    networks:
+      - dfe_stack_net
+    depends_on:
+      - dfe-zk-3
+    ports:
+      - 8090:18080 # Unsecured HTTP Web Port
+      - 8444:18443 # secured HTTPs Web Port
+    volumes:
+      - ~/srv/dfe/nifi-registry/database:/opt/nifi-registry/database
+      - ~/srv/dfe/nifi-registry/flow_storage:/opt/nifi-registry/flow_storage
+
+  dfe-nifi-dev-1:
+    image: icorrea/nifi:1.8.0-alpine3.8
+    networks:
+      - dfe_stack_net
+    depends_on:
+      - dfe-nifi-registry
+    ports:
+      - 8080:8080 # Unsecured HTTP Web Port
+      - 8443:8443 # secured HTTPs Web Port
+      - 10000:10000 # socket site-to-site Port
+    environment:
+      - NIFI_WEB_HTTP_PORT=8080
+      - NIFI_CLUSTER_IS_NODE=true
+      - NIFI_CLUSTER_NODE_PROTOCOL_PORT=8082
+      - NIFI_ZK_CONNECT_STRING=dfe-zk-1:2181,dfe-zk-2:2181,dfe-zk-3:2181
+      - NIFI_ZK_ROOT_NODE=/dfe-nifi-dev
+      - NIFI_ELECTION_MAX_WAIT=1 min
+    volumes:
+      - ~/srv/dfe/dev/nifi-1/state:/opt/nifi/state
+      - ~/srv/dfe/dev/nifi-1/database_repository:/opt/nifi/database_repository
+      - ~/srv/dfe/dev/nifi-1/flowfile_repository:/opt/nifi/flowfile_repository
+      - ~/srv/dfe/dev/nifi-1/content_repository:/opt/nifi/content_repository
+      - ~/srv/dfe/dev/nifi-1/provenance_repository:/opt/nifi/provenance_repository
+
+  dfe-nifi-dev-2:
+    image: icorrea/nifi:1.8.0-alpine3.8
+    networks:
+      - dfe_stack_net
+    depends_on:
+      - dfe-nifi-registry
+    ports:
+      - 18080:8080 # Unsecured HTTP Web Port
+      - 18443:8443 # secured HTTPs Web Port
+      - 10001:10000 # socket site-to-site Port
+    environment:
+      - NIFI_WEB_HTTP_PORT=18080
+      - NIFI_CLUSTER_IS_NODE=true
+      - NIFI_CLUSTER_NODE_PROTOCOL_PORT=8082
+      - NIFI_ZK_CONNECT_STRING=dfe-zk-1:2181,dfe-zk-2:2181,dfe-zk-3:2181
+      - NIFI_ZK_ROOT_NODE=/dfe-nifi-dev
+      - NIFI_ELECTION_MAX_WAIT=1 min
+    volumes:
+      - ~/srv/dfe/dev/nifi-2/state:/opt/nifi/state
+      - ~/srv/dfe/dev/nifi-2/database_repository:/opt/nifi/database_repository
+      - ~/srv/dfe/dev/nifi-2/flowfile_repository:/opt/nifi/flowfile_repository
+      - ~/srv/dfe/dev/nifi-2/content_repository:/opt/nifi/content_repository
+      - ~/srv/dfe/dev/nifi-2/provenance_repository:/opt/nifi/provenance_repository
+
+  dfe-nifi-prd-1:
+    image: icorrea/nifi:1.8.0-alpine3.8
+    networks:
+      - dfe_stack_net
+    depends_on:
+      - dfe-nifi-registry
+    ports:
+      - 28080:8080 # Unsecured HTTP Web Port
+      - 28443:8443 # secured HTTPs Web Port
+      - 20001:10000 # socket site-to-site Port
+    environment:
+      - NIFI_WEB_HTTP_PORT=28080
+      - NIFI_CLUSTER_IS_NODE=true
+      - NIFI_CLUSTER_NODE_PROTOCOL_PORT=28082
+      - NIFI_ZK_CONNECT_STRING=dfe-zk-1:2181,dfe-zk-2:2181,dfe-zk-3:2181
+      - NIFI_ZK_ROOT_NODE=/dfe-nifi-prd
+      - NIFI_ELECTION_MAX_WAIT=1 min
+    volumes:
+      - ~/srv/dfe/prd/nifi-1/state:/opt/nifi/state
+      - ~/srv/dfe/prd/nifi-1/database_repository:/opt/nifi/database_repository
+      - ~/srv/dfe/prd/nifi-1/flowfile_repository:/opt/nifi/flowfile_repository
+      - ~/srv/dfe/prd/nifi-1/content_repository:/opt/nifi/content_repository
+      - ~/srv/dfe/prd/nifi-1/provenance_repository:/opt/nifi/provenance_repository
+
+  # A web based interface for managing your docker containers.
+  portainer:
+    image: icorrea/portainer:1.19.2-alpine
+    networks:
+      - dfe_stack_net
+    depends_on:
+      - dfe-zk-3
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/srv/dfe/portainer/data:/data
+    # Enable you to access potainers web interface from your host machine
+    # using http://localhost:9000
+    ports:
+      - "9000:9000"
+
+networks:
+  dfe_stack_net:
+    external: true
+
