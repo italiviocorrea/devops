@@ -24,7 +24,7 @@ RUN apt-get update && \
     localedef --i $INPUTFILE -c -f $CHARMAP -A /usr/share/locale/locale.alias $LANG
 
 
-
 COPY ntpd.conf /etc/ntpd.conf
 
 CMD ["ntpd","-v","-d","-s","-f","/etc/ntpd.conf"]
+

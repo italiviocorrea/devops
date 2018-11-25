@@ -26,3 +26,4 @@ RUN apt-get update && \
 COPY ntpd.conf /etc/ntpd.conf
 
 CMD ["ntpd","-v","-d","-s","-f","/etc/ntpd.conf"]
+
