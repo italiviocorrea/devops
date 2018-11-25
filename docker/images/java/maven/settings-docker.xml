@@ -94,12 +94,6 @@ under the License.
               | Specification for one proxy, to be used in connecting to the network.
      |-->
     <proxy>
-      <id>sgi</id>
-      <active>true</active>
-      <protocol>http</protocol>
-      <host>proxy.sgi.ms.gov.br</host>
-      <port>8081</port>
-      <nonProxyHosts>repo.ms.gov.br</nonProxyHosts>
     </proxy>
     
   </proxies>
@@ -116,21 +110,6 @@ under the License.
      | NOTE: You should either specify username/password OR privateKey/passphrase, since these pairings are
      |       used together.
      | -->
-    <server>
-      <id>snapshots</id>
-      <username>maven-deployer</username>
-      <password>BQpkXZ7feLNepdeY</password>
-    </server>
-    <server>
-      <id>releases</id>
-      <username>maven-deployer</username>
-      <password>BQpkXZ7feLNepdeY</password>
-    </server>
-    <server>
-      <id>registry</id>
-      <username>maven-deployer</username>
-      <password>BQpkXZ7feLNepdeY</password>
-    </server>
 
     <!-- Another sample, using keys to authenticate.
              <server>
@@ -168,7 +147,6 @@ under the License.
     <mirror>
       <id>nexus</id>
       <mirrorOf>*</mirrorOf>
-      <url>http://repo.ms.gov.br/repository/public</url>
     </mirror>
   </mirrors>
 
