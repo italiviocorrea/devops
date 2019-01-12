@@ -1,2 +1,2 @@
-# Cluster VirtualBox Centos 7 fixed IP
+# DevOps
 Projetos de Infraestrutura Ágil (Docker, Ansible, Puppet, Chef, etc)
