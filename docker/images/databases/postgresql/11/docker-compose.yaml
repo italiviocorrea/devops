@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: icorrea/postgresql:11.2-alpine3.9
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: senha123
+    networks:
+      - dsa_net	
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    restart: always
+    networks:
+      - dsa_net	
+    ports:
+      - 8080:8080
+
+networks:
+  dsa_net:
+    external: true
+

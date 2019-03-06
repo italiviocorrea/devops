@@ -1,6 +1,6 @@
 FROM icorrea/openjdk:8u181-jdk-alpine3.8
 
-ARG kafka_version=2.0.0
+ARG kafka_version=2.1.1
 ARG scala_version=2.12
 
 MAINTAINER Italivio Correa
@@ -8,15 +8,25 @@ MAINTAINER Italivio Correa
 RUN apk add --update unzip wget curl docker jq coreutils bash
 
 ENV KAFKA_VERSION=$kafka_version \
-    SCALA_VERSION=$scala_version 
+    SCALA_VERSION=$scala_version \
+    KAFKA_HOME=/opt/kafka \
+    PATH=${PATH}:${KAFKA_HOME}/bin
 
 ADD download-kafka.sh /tmp/download-kafka.sh
-RUN mkdir /opt && chmod a+x /tmp/download-kafka.sh && sync && /tmp/download-kafka.sh && tar xfz /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -C /opt && rm /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz && ln -s /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION} /opt/kafka
 
-VOLUME ["/kafka"]
+RUN mkdir /opt && \
+    chmod a+x /tmp/download-kafka.sh && sync && \
+    /tmp/download-kafka.sh && \
+    tar xfz /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -C /opt && \
+    rm /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz && \
+    ln -s /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION} /opt/kafka 
 
-ENV KAFKA_HOME /opt/kafka
-ENV PATH ${PATH}:${KAFKA_HOME}/bin
+#
+# Expose the ports and set up volumes for the data and logs directories
+#
+EXPOSE 9092
+VOLUME ["/kafka/data","/kafka/logs","/kafka/config"]
+
 ADD start-kafka.sh /usr/bin/start-kafka.sh
 ADD broker-list.sh /usr/bin/broker-list.sh
 

@@ -1,0 +1,32 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: icorrea/postgresql:10.7-alpine3.9
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: senha123
+    networks:
+      - dsa_net
+    volumes:
+      - ~/srv/postgresql/v10_7:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "italiviocorrea@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "senha123"
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+    networks:
+      - dsa_net
+
+networks:
+  dsa_net:
+    external: true
+

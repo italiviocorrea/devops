@@ -27,3 +27,7 @@ RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == system
 # Configuring and enabling NTPD
 COPY ntpd.conf /etc/ntpd.conf
 
+
+
+
+

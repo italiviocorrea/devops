@@ -1,0 +1,13 @@
+{
+    "name": "paises-connector",
+    "config": {
+        "connector.class" : "io.debezium.connector.mongodb.MongoDbConnector",
+        "tasks.max" : "1",
+        "mongodb.hosts" : "rs0/mongodb:27017",
+        "mongodb.name" : "dbserver1",
+        "mongodb.user" : "mongodb",
+        "mongodb.password" : "senha123",
+        "database.whitelist" : "paises",
+        "database.history.kafka.bootstrap.servers" : "kafka:9092"
+    }
+}
