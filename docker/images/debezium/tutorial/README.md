@@ -14,7 +14,6 @@ This demo automatically deploys the topology of services as defined in the [Debe
 
 ```shell
 # Start the topology as defined in http://debezium.io/docs/tutorial/
-export DEBEZIUM_VERSION=0.8
 docker-compose -f docker-compose-mysql.yaml up
 
 # Start MySQL connector
@@ -25,10 +24,10 @@ docker-compose -f docker-compose-mysql.yaml exec kafka /kafka/bin/kafka-console-
     --bootstrap-server kafka:9092 \
     --from-beginning \
     --property print.key=true \
-    --topic dbserver1.inventory.customers
+    --topic dbserver1.inventory.paises
 
 # Modify records in the database via MySQL client
-docker-compose -f docker-compose-mysql.yaml exec mysql bash -c 'mysql -u $MYSQL_USER -p$MYSQL_PASSWORD inventory'
+docker-compose -f docker-compose-mysql.yaml exec mysql bash -c 'mysql -u $MYSQL_USER -p$MYSQL_PASSWORD paises'
 
 # Shut down the cluster
 docker-compose -f docker-compose-mysql.yaml down
@@ -73,7 +72,6 @@ docker-compose -f docker-compose-mysql-avro.yaml exec schema-registry /usr/bin/k
 
 ```shell
 # Start the topology as defined in http://debezium.io/docs/tutorial/
-export DEBEZIUM_VERSION=0.8
 docker-compose -f docker-compose-postgres.yaml up
 
 # Start Postgres connector
@@ -84,10 +82,10 @@ docker-compose -f docker-compose-postgres.yaml exec kafka /kafka/bin/kafka-conso
     --bootstrap-server kafka:9092 \
     --from-beginning \
     --property print.key=true \
-    --topic dbserver1.inventory.customers
+    --topic dbserver1.dbpaises.paises
 
 # Modify records in the database via Postgres client
-docker-compose -f docker-compose-postgres.yaml exec postgres env PGOPTIONS="--search_path=inventory" bash -c 'psql -U $POSTGRES_USER postgres'
+docker-compose -f docker-compose-postgres.yaml exec postgres env PGOPTIONS="--search_path=dbpaises" bash -c 'psql -U $POSTGRES_USER postgres'
 
 # Shut down the cluster
 docker-compose -f docker-compose-postgres.yaml down
@@ -97,11 +95,10 @@ docker-compose -f docker-compose-postgres.yaml down
 
 ```shell
 # Start the topology as defined in http://debezium.io/docs/tutorial/
-export DEBEZIUM_VERSION=0.8
 docker-compose -f docker-compose-mongodb.yaml up
 
 # Initialize MongoDB replica set and insert some test data
-docker-compose -f docker-compose-mongodb.yaml exec mongodb bash -c '/usr/local/bin/init-inventory.sh'
+docker-compose -f docker-compose-mongodb.yaml exec mongodb bash -c '/usr/local/bin/init-paises.sh'
 
 # Start MongoDB connector
 curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @register-mongodb.json
@@ -111,13 +108,13 @@ docker-compose -f docker-compose-mongodb.yaml exec kafka /kafka/bin/kafka-consol
     --bootstrap-server kafka:9092 \
     --from-beginning \
     --property print.key=true \
-    --topic dbserver1.inventory.customers
+    --topic dbserver1.dbpaises.paises
 
 # Modify records in the database via MongoDB client
-docker-compose -f docker-compose-mongodb.yaml exec mongodb bash -c 'mongo -u $MONGODB_USER -p $MONGODB_PASSWORD --authenticationDatabase admin inventory'
+docker-compose -f docker-compose-mongodb.yaml exec mongodb bash -c 'mongo -u $MONGODB_USER -p $MONGODB_PASSWORD --authenticationDatabase admin dbpaises'
 
-db.customers.insert([
-    { _id : 1005, first_name : 'Bob', last_name : 'Hopper', email : 'thebob@example.com' }
+db.paises.insert([
+    { _id : 132, nome : 'AFEGANISTAO', inicio_vigencia : '2006-01-01' }
 ]);
 
 # Shut down the cluster
@@ -172,11 +169,10 @@ docker-compose -f docker-compose-oracle.yaml down
 
 ```shell
 # Start the topology as defined in http://debezium.io/docs/tutorial/
-export DEBEZIUM_VERSION=0.9
 docker-compose -f docker-compose-sqlserver.yaml up
 
 # Initialize database and insert test data
-cat debezium-sqlserver-init/inventory.sql | docker exec -i tutorial_sqlserver_1 bash -c '/opt/mssql-tools/bin/sqlcmd -U sa -P $SA_PASSWORD'
+cat debezium-sqlserver-init/paises.sql | docker exec -i tutorial_sqlserver_1_d6eccd9a7e8a bash -c '/opt/mssql-tools/bin/sqlcmd -U sa -P Senha123'
 
 # Start SQL Server connector
 curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @register-sqlserver.json
@@ -186,10 +182,10 @@ docker-compose -f docker-compose-sqlserver.yaml exec kafka /kafka/bin/kafka-cons
     --bootstrap-server kafka:9092 \
     --from-beginning \
     --property print.key=true \
-    --topic server1.dbo.customers
+    --topic server1.dbo.paises
 
 # Modify records in the database via SQL Server client (do not forget to add `GO` command to execute the statement)
-docker-compose -f docker-compose-sqlserver.yaml exec sqlserver bash -c '/opt/mssql-tools/bin/sqlcmd -U sa -P $SA_PASSWORD -d testDB'
+docker-compose -f docker-compose-sqlserver.yaml exec sqlserver bash -c '/opt/mssql-tools/bin/sqlcmd -U sa -P senha123 -d dbpaises'
 
 # Shut down the cluster
 docker-compose -f docker-compose-sqlserver.yaml down

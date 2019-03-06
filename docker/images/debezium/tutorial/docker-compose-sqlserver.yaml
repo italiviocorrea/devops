@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   zookeeper:
     image: icorrea/zookeeper:0.10-centos7
     ports:
@@ -25,6 +26,8 @@ services:
     image: microsoft/mssql-server-linux:latest
     ports:
      - 1433:1433
+    networks:
+      - dfe_net
     environment:
      - ACCEPT_EULA=Y
      - MSSQL_PID=Standard
@@ -47,6 +50,7 @@ services:
      - OFFSET_STORAGE_TOPIC=my_connect_offsets
      - STATUS_STORAGE_TOPIC=my_connect_statuses
 
+
 networks:
-  - dfe_net:
-      external: true
+  dfe_net:
+    external: true
