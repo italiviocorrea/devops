@@ -3,7 +3,7 @@ FROM icorrea/ubuntu:16.04
 MAINTAINER Italivio Correa <icorrea@fazenda.ms.gov.br>
 
 # `Z_VERSION` will be updated by `dev/change_zeppelin_version.sh`
-ENV Z_VERSION="0.8.0"
+ENV Z_VERSION="0.8.1"
 ENV LOG_TAG="[ZEPPELIN_${Z_VERSION}]:" \
     Z_HOME="/zeppelin" 
 
@@ -82,8 +82,15 @@ RUN echo "$LOG_TAG Cleanup" && \
 COPY zeppelin-env.sh  ${Z_HOME}/conf
 
 RUN chmod +x ${Z_HOME}/conf/zeppelin-env.sh
+
+ENV ZEPPELIN_DATA /zeppelin/data
+
+RUN mkdir -p $ZEPPELIN_DATA \
+    && chown -R root:root $ZEPPELIN_DATA
+VOLUME $ZEPPELIN_DATA
   
 VOLUME /zeppelin/notebook/
+
 
 EXPOSE 8080
 
@@ -99,7 +106,8 @@ RUN curl -sL --retry 3 \
  && chown -R root:root $HADOOP_HOME
 
 # SPARK
-ENV SPARK_VERSION 2.3.2
+ENV SPARK_DATA /spark/data
+ENV SPARK_VERSION 2.4.1
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-without-hadoop
 ENV SPARK_HOME /usr/spark-${SPARK_VERSION}
 ENV SPARK_DIST_CLASSPATH="$HADOOP_HOME/etc/hadoop/*:$HADOOP_HOME/share/hadoop/common/lib/*:$HADOOP_HOME/share/hadoop/common/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/hdfs/lib/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/yarn/lib/*:$HADOOP_HOME/share/hadoop/yarn/*:$HADOOP_HOME/share/hadoop/mapreduce/lib/*:$HADOOP_HOME/share/hadoop/mapreduce/*:$HADOOP_HOME/share/hadoop/tools/lib/*"
@@ -111,6 +119,10 @@ RUN curl -sL --retry 3 \
  && chown -R root:root $SPARK_HOME
 
 COPY sqljdbc42.jar $SPARK_HOME/jars
+
+RUN mkdir -p $SPARK_DATA \
+    && chown -R root:root $SPARK_DATA
+VOLUME $SPARK_DATA
 
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 WORKDIR ${Z_HOME}

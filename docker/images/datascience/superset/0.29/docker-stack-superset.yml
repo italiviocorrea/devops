@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+
+  redis:
+    image: redis:3.2
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - ~/srv/superset/redis:/data
+
+  postgres:
+    image: postgres:10
+    restart: always
+    environment:
+      POSTGRES_DB: superset
+      POSTGRES_PASSWORD: superset
+      POSTGRES_USER: superset
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/srv/superset/postgresql:/var/lib/postgresql/data
+
+  superset:
+    image: icorrea/apache-superset:0.27.0-debian
+    restart: always
+    environment:
+      POSTGRES_DB: superset
+      POSTGRES_USER: superset
+      POSTGRES_PASSWORD: superset
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      SUPERSET_ENV: local
+    ports:
+      - 8088:8088
+    command: "tail -f /dev/null"
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "8088:8088"
+    volumes:
+      - ~/srv/superset:/home/work/incubator-superset
+      - ~/srv/superset/modules:/home/work/incubator-superset/superset/assets/node_modules
+      - ~/srv/superset/superset_config.py:/etc/superset/superset_config.py
+

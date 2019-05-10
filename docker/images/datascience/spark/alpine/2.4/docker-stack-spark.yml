@@ -1,0 +1,93 @@
+version: '3.5'
+
+services:
+
+  master:
+    image: icorrea/spark:2.4.1-alpine3.9
+    command: bin/spark-class org.apache.spark.deploy.master.Master -h master
+    networks:
+      - spark_net
+    environment:
+      MASTER: spark://master:7077
+      SPARK_CONF_DIR: /conf
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 8g
+    ports:
+      - 4040:4040
+      - 6066:6066
+      - 7077:7077
+      - 8090:8080
+    volumes:
+      - ~/projetos_zeppelin/spark/bank:/zeppelin/data
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.backend=sparkdfe"
+        - "traefik.backend.loadbalancer.sticky=true"
+        - "traefik.frontend.rule=PathPrefix:/sparkdfe"
+        - "traefik.enable=true"
+        - "traefik.port=8080"
+      placement:
+        constraints: 
+          - node.label.region == sup
+
+  worker:
+    image: icorrea/spark:2.4.1-alpine3.9
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
+    networks:
+      - spark_net
+    environment:
+      SPARK_CONF_DIR: /conf
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 16g
+    depends_on:
+      - master
+    volumes:
+      - ~/projetos_zeppelin/spark/bank:/zeppelin/data
+    deploy:
+      replicas: 2
+      labels:
+        - "traefik.enable=false"
+      placement:
+        constraints: 
+          - node.label.region == sup
+
+  zeppelin:
+    image: icorrea/zeppelin:0.8.1-ubuntu
+    environment:
+      - ZEPPELIN_LOG_DIR=/zeppelin/logs
+      - ZEPPELIN_NOTEBOOK_DIR=/zeppelin/notebook
+      - ZEPPELIN_SERVER_CONTEXT_PATH=/zeppelin
+    networks:
+      - spark_net
+    volumes:
+      - ~/srv/zeppelin/conf:/zeppelin/conf
+      - ~/srv/zeppelin/notebook:/zeppelin/notebook
+      - ~/projetos_zeppelin/spark/bank:/zeppelin/data
+    ports:
+      - 8080:8080
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.backend=zeppelin"
+        - "traefik.backend.loadbalancer.sticky=true"
+        - "traefik.frontend.rule=PathPrefix:/zeppelin"
+        - "traefik.enable=true"
+        - "traefik.port=8080"
+      placement:
+        constraints: 
+          - node.label.region == sup
+ 
+  pyspark:
+    image: icorrea/anaconda:3-2019.03-alpine
+    command: pyspark --master spark://master:7077
+    ports:
+      - 8888:8888
+    networks:
+      - spark_net
+    depends_on:
+      - master
+    
+networks:
+  spark_net:
+    external: true

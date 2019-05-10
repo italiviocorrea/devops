@@ -1,13 +1,13 @@
-FROM icorrea/alpine:3.8
+FROM icorrea/alpine:3.9
 
-MAINTAINER Italivio Correa <icorrea@fazenda.ms.gov.br>
+MAINTAINER Italivio Correa <italiviocorrea@gmail.com>
 
 # http://bugs.python.org/issue19846
 # > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
 ENV ALPINE_EDGE_COMMUNITY_REPO=http://dl-cdn.alpinelinux.org/alpine/edge/community \
     CONDA_REPO=https://repo.continuum.io \
     CONDA_TYPE=archive \
-    CONDA_INSTALLER=Anaconda3-5.3.0-Linux-x86_64.sh \
+    CONDA_INSTALLER=Anaconda3-2019.03-Linux-x86_64.sh \
     CONDA_DIR=/opt/conda \
     CONDA_USER=conda \
     CONDA_USER_HOME=/home/conda \
@@ -44,7 +44,7 @@ RUN apk add --no-cache --virtual=build-dependencies \
     && bash ./"${CONDA_INSTALLER}" -b -p /opt/conda \
     && cd \
     && rm -rf /tmp/* /var/cache/apk/* \
-    && echo 'export PATH=/opt/conda/bin:$PATH' >> /etc/profile.d/conda.sh 
+    && echo 'export PATH=/opt/conda/bin:$PATH' >> /etc/profile.d/conda.sh
 
 #\
 #    && conda update --quiet --yes --all \

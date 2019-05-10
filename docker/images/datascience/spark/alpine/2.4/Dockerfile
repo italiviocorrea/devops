@@ -20,12 +20,12 @@ RUN { \
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 ENV PATH $PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
 
-ENV JAVA_VERSION 8u181
-ENV JAVA_ALPINE_VERSION 8.181.13-r0
+ENV JAVA_VERSION 8u201
+ENV JAVA_ALPINE_VERSION 8.201.08-r1
 
 RUN set -x \
 	&& apk add --no-cache \
-		openjdk8="$JAVA_ALPINE_VERSION" \
+		openjdk8 \
 	&& [ "$JAVA_HOME" = "$(docker-java-home)" ]
 
 
@@ -41,7 +41,8 @@ RUN curl -sL --retry 3 \
  && chown -R root:root $HADOOP_HOME
 
 # SPARK
-ENV SPARK_VERSION 2.3.2
+ENV SPARK_DATA /spark/data
+ENV SPARK_VERSION 2.4.3
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-without-hadoop
 ENV SPARK_HOME /usr/spark-${SPARK_VERSION}
 ENV SPARK_DIST_CLASSPATH="$HADOOP_HOME/etc/hadoop/*:$HADOOP_HOME/share/hadoop/common/lib/*:$HADOOP_HOME/share/hadoop/common/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/hdfs/lib/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/yarn/lib/*:$HADOOP_HOME/share/hadoop/yarn/*:$HADOOP_HOME/share/hadoop/mapreduce/lib/*:$HADOOP_HOME/share/hadoop/mapreduce/*:$HADOOP_HOME/share/hadoop/tools/lib/*"
@@ -53,6 +54,11 @@ RUN curl -sL --retry 3 \
  && chown -R root:root $SPARK_HOME
 
 COPY sqljdbc42.jar $SPARK_HOME/jars
+
+RUN mkdir -p $SPARK_DATA \
+    && chown -R root:root $SPARK_DATA
+
+VOLUME $SPARK_DATA
 
 EXPOSE 4040 6066 7077 8080
 
