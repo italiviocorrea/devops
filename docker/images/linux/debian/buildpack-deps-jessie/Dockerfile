@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM buildpack-deps:jessie
  
 LABEL maintainer="Italivio Correa <italiviocorrea@gmail.com>"
 

@@ -1,74 +1,78 @@
-FROM icorrea/python:3.6-alpine3.9
+FROM icorrea/python:3.6-stretch-slim
 
 LABEL maintainer="Italivio Correa <italiviocorrea@gmail.com>"
 
 # Superset version
 ARG SUPERSET_VERSION=0.29.0rc7
 
-# Add superset_config.py folder to PYTHONPATH so superset could find it.
 # Configure environment
 ENV GUNICORN_BIND=0.0.0.0:8088 \
     GUNICORN_LIMIT_REQUEST_FIELD_SIZE=0 \
     GUNICORN_LIMIT_REQUEST_LINE=0 \
     GUNICORN_TIMEOUT=60 \
     GUNICORN_WORKERS=2 \
+    LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8 \
     PYTHONPATH=/etc/superset:/home/superset:$PYTHONPATH \
     SUPERSET_REPO=apache/incubator-superset \
     SUPERSET_VERSION=${SUPERSET_VERSION} \
     SUPERSET_HOME=/var/lib/superset
 ENV GUNICORN_CMD_ARGS="--workers ${GUNICORN_WORKERS} --timeout ${GUNICORN_TIMEOUT} --bind ${GUNICORN_BIND} --limit-request-line ${GUNICORN_LIMIT_REQUEST_LINE} --limit-request-field_size ${GUNICORN_LIMIT_REQUEST_FIELD_SIZE}"
 
-
-RUN adduser -S -H superset && \
-    mkdir -p /etc/superset && chown -R superset /etc/superset && \
-    mkdir -p /opt/superset && chown -R superset /opt/superset && \
-    apk add --no-cache --virtual .meta-build-dependencies \
-        cyrus-sasl-dev \
-        g++ \
-        gcc \
+# Create superset user & install dependencies
+RUN useradd -U -m superset && \
+    mkdir /etc/superset  && \
+    mkdir ${SUPERSET_HOME} && \
+    chown -R superset:superset /etc/superset && \
+    chown -R superset:superset ${SUPERSET_HOME} && \
+    apt-get update && \
+    apt-get install -y \
+        build-essential \
+        curl \
+        libmysqlclient-dev \
+        freetds-bin \
+        freetds-dev \
         libffi-dev \
-        libressl-dev \
-        musl-dev \
-        mariadb-dev \
-        postgresql-dev \
-        python3-dev && \
-    apk add --no-cache libpq mariadb-client-libs && \
-    pip3 install --no-cache-dir --no-build-isolation \
-        Flask==0.12.4 \
-        SQLAlchemy-Utils==0.32.21 && \
-    pip3 install --no-cache-dir --no-build-isolation \
-        Werkzeug==0.14.1 \
+        libldap2-dev \
+        libpq-dev \
+        libsasl2-2 \
+        libsasl2-dev \
+        libsasl2-modules-gssapi-mit \
+        libssl1.0 && \
+    apt-get clean && \
+    rm -r /var/lib/apt/lists/* && \
+    curl https://raw.githubusercontent.com/${SUPERSET_REPO}/${SUPERSET_VERSION}/requirements.txt -o requirements.txt && \
+    pip install --no-cache-dir -r requirements.txt && \
+    rm requirements.txt && \
+    pip install --no-cache-dir \
         flask-cors==3.0.3 \
         flask-mail==0.9.1 \
         flask-oauth==0.12 \
-        flask_oauthlib==0.9.3 \
+        flask_oauthlib==0.9.5 \
         gevent==1.2.2 \
         impyla==0.14.0 \
         infi.clickhouse-orm==1.0.2 \
-        psycopg2==2.7.4 \
-        mysqlclient \
-        pyathena==1.2.5 \
+        mysqlclient==1.3.7 \
+        psycopg2==2.6.1 \
+        pyathena==1.5.1 \
+        pybigquery==0.4.10 \
         pyhive==0.5.1 \
-        pymssql==2.1.4 \
-        redis==2.10.6 \
+        pyldap==2.4.28 \
+        pymssql==2.1.3 \
+        redis==2.10.5 \
         sqlalchemy-clickhouse==0.1.5.post0 \
         sqlalchemy-redshift==0.7.1 \
-        superset==${SUPERSET_VERSION} && \
-    apk del .meta-build-dependencies && \
-    find / -type d -name __pycache__ -exec rm -r {} + && \
-    find /usr/local/lib/python3.6/site-packages -type d -name tests -exec rm -r {} + && \
-    rm -rf \
-        /root/.cache \
-        /usr/share/terminfo \
-        /var/cache
+        werkzeug==0.14.1 && \
+    pip install superset==${SUPERSET_VERSION}
 
-# configure filesystem
+# Configure Filesystem
+COPY superset /usr/local/bin
 VOLUME /home/superset \
        /etc/superset \
        /var/lib/superset
 WORKDIR /home/superset
 
-# deploy application
+# Deploy application
 EXPOSE 8088
 HEALTHCHECK CMD ["curl", "-f", "http://localhost:8088/health"]
 CMD ["gunicorn", "superset:app"]

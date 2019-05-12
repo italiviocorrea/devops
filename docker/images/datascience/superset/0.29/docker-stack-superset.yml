@@ -3,7 +3,7 @@ version: '3'
 services:
 
   redis:
-    image: redis:3.2
+    image: icorrea/redis:5.0.4-alpine3.8
     restart: always
     ports:
       - 6379:6379
@@ -11,7 +11,7 @@ services:
       - ~/srv/superset/redis:/data
 
   postgres:
-    image: postgres:10
+    image: icorrea/postgresql:10.7-alpine3.9
     restart: always
     environment:
       POSTGRES_DB: superset
@@ -23,7 +23,7 @@ services:
       - ~/srv/superset/postgresql:/var/lib/postgresql/data
 
   superset:
-    image: icorrea/apache-superset:0.27.0-debian
+    image: icorrea/apache-superset:0.29-python3.6
     restart: always
     environment:
       POSTGRES_DB: superset

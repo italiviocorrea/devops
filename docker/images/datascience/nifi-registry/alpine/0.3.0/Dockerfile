@@ -1,4 +1,4 @@
-FROM icorrea/openjdk:8u181-jre-alpine3.8
+FROM icorrea/openjdk:8u212-jre-alpine3.9
 
 LABEL maintainer="Italivio Correa <italiviocorrea@gmail.com>"
 
@@ -13,11 +13,14 @@ ENV NIFI_REGISTRY_VERSAO=0.3.0 \
 
 ADD sh/ ${NIFI_REGISTRY_BASE_DIR}/scripts/
 
+
+# https://www-eu.apache.org/dist/nifi/nifi-registry/nifi-registry-0.3.0/nifi-registry-0.3.0-bin.tar.gz
+
 RUN apk --no-cache add \
     xmlstarlet \
     jq && \
     cd /opt && \
-    wget http://ftp.unicamp.br/pub/apache/nifi/nifi-registry/nifi-registry-${NIFI_REGISTRY_VERSAO}/nifi-registry-${NIFI_REGISTRY_VERSAO}-bin.tar.gz && \
+    wget https://www-eu.apache.org/dist/nifi/nifi-registry/nifi-registry-${NIFI_REGISTRY_VERSAO}/nifi-registry-${NIFI_REGISTRY_VERSAO}-bin.tar.gz && \
     tar -xzf nifi-registry-${NIFI_REGISTRY_VERSAO}-bin.tar.gz && \
     mv nifi-registry-${NIFI_REGISTRY_VERSAO} $NIFI_REGISTRY_HOME && \
     rm -rf nifi-registry-${NIFI_REGISTRY_VERSAO}-bin.tar.gz

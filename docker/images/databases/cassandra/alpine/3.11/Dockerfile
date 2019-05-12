@@ -1,9 +1,9 @@
-FROM icorrea/openjdk:8u181-jre-alpine3.8
+FROM icorrea/openjdk:8u212-jre-alpine3.9
 
 MAINTAINER Italivio Correa <italiviocorrea@gmail.com>
 
 ## Variáveis de ambiente
-ENV CASSANDRA_VERSION 3.11.3
+ENV CASSANDRA_VERSION 3.11.4
 
 ENV CASSANDRA_HOME /usr/local/apache-cassandra-${CASSANDRA_VERSION}
 
@@ -24,7 +24,6 @@ RUN set -x \
     && apk update \
     && apk --no-cache add \
         bash \
-        jemalloc \
         ca-certificates \
         python \
         su-exec \

@@ -3,7 +3,7 @@ version: "3"
 services:
 
   cassandra-1:
-    image: icorrea/cassandra:3.11-alpine3.8
+    image: icorrea/cassandra:3.11-alpine3.9
     networks:
       - cassandra-net
     environment:
@@ -16,10 +16,10 @@ services:
       - MAX_HEAP_SIZE=512M
       - HEAP_NEWSIZE=200M
     volumes:
-      - ~/srv/cassandra/dfedata1:/usr/local/apache-cassandra-3.11.3
+      - ~/srv/cassandra/dfedata1:/usr/local/apache-cassandra-3.11.4
 
   cassandra-2:
-    image: icorrea/cassandra:3.11-alpine3.8
+    image: icorrea/cassandra:3.11-alpine3.9
     networks:
       - cassandra-net
     environment:
@@ -32,12 +32,12 @@ services:
       - MAX_HEAP_SIZE=512M
       - HEAP_NEWSIZE=200M
     volumes:
-      - ~/srv/cassandra/data2:/usr/local/apache-cassandra-3.11.3
+      - ~/srv/cassandra/data2:/usr/local/apache-cassandra-3.11.4
     depends_on:
       - cassandra-1
 
   cassandra-3:
-    image: icorrea/cassandra:3.11-alpine3.8
+    image: icorrea/cassandra:3.11-alpine3.9
     networks:
       - cassandra-net
     environment:
@@ -50,7 +50,7 @@ services:
       - MAX_HEAP_SIZE=512M
       - HEAP_NEWSIZE=200M
     volumes:
-      - ~/srv/cassandra/data3:/usr/local/apache-cassandra-3.11.3
+      - ~/srv/cassandra/data3:/usr/local/apache-cassandra-3.11.4
     depends_on:
       - cassandra-2
 

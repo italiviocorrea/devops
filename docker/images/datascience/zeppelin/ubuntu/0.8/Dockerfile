@@ -1,6 +1,6 @@
 FROM icorrea/ubuntu:16.04
 
-MAINTAINER Italivio Correa <icorrea@fazenda.ms.gov.br>
+MAINTAINER Italivio Correa <italiviocorrea@gmail.com>
 
 # `Z_VERSION` will be updated by `dev/change_zeppelin_version.sh`
 ENV Z_VERSION="0.8.1"
@@ -34,7 +34,7 @@ RUN echo "$LOG_TAG Install miniconda3 related packages" && \
     libglib2.0-0 libxext6 libsm6 libxrender1 \
     git mercurial subversion && \
     echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
-    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.5.11-Linux-x86_64.sh -O ~/miniconda.sh && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh
 ENV PATH /opt/conda/bin:$PATH
@@ -107,7 +107,7 @@ RUN curl -sL --retry 3 \
 
 # SPARK
 ENV SPARK_DATA /spark/data
-ENV SPARK_VERSION 2.4.1
+ENV SPARK_VERSION 2.4.3
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-without-hadoop
 ENV SPARK_HOME /usr/spark-${SPARK_VERSION}
 ENV SPARK_DIST_CLASSPATH="$HADOOP_HOME/etc/hadoop/*:$HADOOP_HOME/share/hadoop/common/lib/*:$HADOOP_HOME/share/hadoop/common/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/hdfs/lib/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/yarn/lib/*:$HADOOP_HOME/share/hadoop/yarn/*:$HADOOP_HOME/share/hadoop/mapreduce/lib/*:$HADOOP_HOME/share/hadoop/mapreduce/*:$HADOOP_HOME/share/hadoop/tools/lib/*"

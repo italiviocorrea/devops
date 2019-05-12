@@ -1,6 +1,6 @@
-FROM icorrea/openjdk:8u181-jdk-alpine3.8
+FROM icorrea/openjdk:8u212-jdk-alpine3.9
 
-ARG kafka_version=2.1.1
+ARG kafka_version=2.2.0
 ARG scala_version=2.12
 
 MAINTAINER Italivio Correa
@@ -14,8 +14,7 @@ ENV KAFKA_VERSION=$kafka_version \
 
 ADD download-kafka.sh /tmp/download-kafka.sh
 
-RUN mkdir /opt && \
-    chmod a+x /tmp/download-kafka.sh && sync && \
+RUN chmod a+x /tmp/download-kafka.sh && sync && \
     /tmp/download-kafka.sh && \
     tar xfz /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -C /opt && \
     rm /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz && \

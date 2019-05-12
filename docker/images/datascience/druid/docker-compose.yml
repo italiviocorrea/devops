@@ -3,19 +3,19 @@ version: "3"
 services:
 
   postgres:
-    image: icorrea/postgresql:9.6-alpine3.8
+    image: icorrea/postgresql:9.6-alpine3.9
     environment:
       - POSTGRES_PASSWORD=senha#123
 
   zookeeper:
     container_name: zookeeper
-    image: icorrea/zookeeper:3.4.13-alpine3.8
+    image: icorrea/zookeeper:3.4.14-alpine3.9
     environment:
       - ZOO_MY_ID=1
       - ZOO_SERVERS=zookeeper
 
   overlord:
-    image: icorrea/apache-druid:0.12.3-alpine3.8
+    image: icorrea/apache-druid:0.14-alpine3.9
     environment:
       - DRUID_XMX=1g
       - DRUID_XMS=1g
@@ -28,7 +28,7 @@ services:
       - overlord
 
   coordinator:
-    image: icorrea/apache-druid:0.12.3-alpine3.8
+    image: icorrea/apache-druid:0.14-alpine3.9
     environment:
       - DRUID_XMX=1g
       - DRUID_XMS=1g
@@ -42,7 +42,7 @@ services:
 
 
   middlemanager:
-    image: icorrea/apache-druid:0.12.3-alpine3.8
+    image: icorrea/apache-druid:0.14-alpine3.9
     environment:
       - DRUID_XMX=1g
       - DRUID_XMS=1g
@@ -55,7 +55,7 @@ services:
       - middleManager
 
   historical:
-    image: icorrea/apache-druid:0.12.3-alpine3.8
+    image: icorrea/apache-druid:0.14-alpine3.9
     environment:
       - DRUID_XMX=1g
       - DRUID_XMS=1g
@@ -68,7 +68,7 @@ services:
       - historical
 
   broker:
-    image: icorrea/apache-druid:0.12.3-alpine3.8
+    image: icorrea/apache-druid:0.14-alpine3.9
     environment:
       - DRUID_XMX=1g
       - DRUID_XMS=1g

@@ -1,10 +1,9 @@
 
-FROM icorrea/openjdk:8u181-jre-alpine3.8
+FROM icorrea/openjdk:8u212-jre-alpine3.9
 MAINTAINER Italivio Correa <italiviocorrea@gmail.com>
 
 
-
-ENV DRUID_VERSION=0.12.3
+ENV DRUID_VERSION=0.14.1-incubating
 
 # Druid env variable
 ENV DRUID_XMX=1g
@@ -19,11 +18,13 @@ RUN apk add --update wget tar bash
 
 RUN mkdir -p /opt
 
-RUN wget -q --no-check-certificate --no-cookies -O - \
-    http://static.druid.io/artifacts/releases/druid-$DRUID_VERSION-bin.tar.gz | tar -xzf - -C /opt \
-    && ln -s /opt/druid-$DRUID_VERSION /opt/druid
+# https://www-us.apache.org/dist/incubator/druid/0.14.1-incubating/apache-druid-0.14.1-incubating-bin.tar.gz
 
-COPY conf /opt/druid-$DRUID_VERSION/conf
+RUN wget -O - \
+      https://www-us.apache.org/dist/incubator/druid/$DRUID_VERSION/apache-druid-$DRUID_VERSION-bin.tar.gz | tar -xzf - -C /opt \
+    && ln -s /opt/apache-druid-$DRUID_VERSION /opt/druid
+
+COPY conf /opt/apache-druid-$DRUID_VERSION/conf
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 RUN mkdir -p /tmp/druid \

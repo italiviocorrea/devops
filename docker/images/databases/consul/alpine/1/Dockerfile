@@ -1,7 +1,7 @@
-FROM icorrea/alpine:3.8
+FROM icorrea/alpine:3.9
 
 # This is the release of Consul to pull in.
-ENV CONSUL_VERSION=1.3.0
+ENV CONSUL_VERSION=1.5.0
 
 # This is the location of the releases.
 ENV HASHICORP_RELEASES=https://releases.hashicorp.com

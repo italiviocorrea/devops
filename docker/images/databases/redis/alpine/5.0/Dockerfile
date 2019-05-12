@@ -1,4 +1,4 @@
-FROM icorrea/alpine:3.8
+FROM icorrea/alpine:3.9
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN addgroup -S redis && adduser -S -G redis redis
@@ -9,17 +9,17 @@ RUN apk add --no-cache \
 # add tzdata for https://github.com/docker-library/redis/issues/138
 		tzdata
 
-ENV REDIS_VERSION 5.0.0
-ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-5.0.0.tar.gz
-ENV REDIS_DOWNLOAD_SHA 70c98b2d0640b2b73c9d8adb4df63bcb62bad34b788fe46d1634b6cf87dc99a4
+ENV REDIS_VERSION 5.0.4
+ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-5.0.4.tar.gz
+ENV REDIS_DOWNLOAD_SHA 3ce9ceff5a23f60913e1573f6dfcd4aa53b42d4a2789e28fa53ec2bd28c987dd
 
+# for redis-sentinel see: http://redis.io/topics/sentinel
 # for redis-sentinel see: http://redis.io/topics/sentinel
 RUN set -ex; \
 	\
 	apk add --no-cache --virtual .build-deps \
 		coreutils \
 		gcc \
-		jemalloc-dev \
 		linux-headers \
 		make \
 		musl-dev \
