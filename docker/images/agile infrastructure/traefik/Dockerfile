@@ -1,8 +1,17 @@
-FROM icorrea/alpine:3.8	
+FROM icorrea/alpine:3.9	
 
-ADD  "https://github.com/containous/traefik/releases/download/v1.7.3/traefik_linux-amd64" traefik
+RUN apk --no-cache add ca-certificates tzdata
 
-RUN  mv  traefik /usr/local/bin/traefik  &&  chmod +x /usr/local/bin/traefik
+RUN set -ex; \
+	apkArch="$(apk --print-arch)"; \
+	case "$apkArch" in \
+		armhf) arch='arm' ;; \
+		aarch64) arch='arm64' ;; \
+		x86_64) arch='amd64' ;; \
+		*) echo >&2 "error: unsupported architecture: $apkArch"; exit 1 ;; \
+	esac; \
+	wget --quiet -O /usr/local/bin/traefik "https://github.com/containous/traefik/releases/download/v1.7.11/traefik_linux-$arch"; \
+	chmod +x /usr/local/bin/traefik
 
 COPY entrypoint.sh /
 
@@ -13,9 +22,9 @@ ENTRYPOINT ["/entrypoint.sh"]
 CMD ["traefik"]
 
 # Metadata
-LABEL org.label-schema.vendor="Containous" \
-      org.label-schema.url="https://traefik.io" \
-      org.label-schema.name="Traefik" \
-      org.label-schema.description="A modern reverse-proxy" \
-      org.label-schema.version="v1.7.3" \
-      org.label-schema.docker.schema-version="1.0"
+LABEL org.opencontainers.image.vendor="Containous" \
+      org.opencontainers.image.url="https://traefik.io" \
+      org.opencontainers.image.title="Traefik" \
+      org.opencontainers.image.description="A modern reverse-proxy" \
+      org.opencontainers.image.version="v1.7.11" \
+			org.opencontainers.image.documentation="https://docs.traefik.io"
