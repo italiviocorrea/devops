@@ -2,8 +2,24 @@ version: '3.5'
 
 services:
 
+  sqlserver:
+    image: microsoft/mssql-server-linux:latest
+    expose:
+      - 1433
+    ports:
+      - 1433:1433
+    networks:
+      - spark_net
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Standard
+      - SA_PASSWORD=Senha123
+      - MSSQL_AGENT_ENABLED=true
+    volumes:
+      - ~/srv/mssql/dbpaises:/var/opt/mssql
+
   master:
-    image: icorrea/spark:2.4.1-alpine3.9
+    image: icorrea/spark:2.4.3-alpine3.9
     command: bin/spark-class org.apache.spark.deploy.master.Master -h master
     networks:
       - spark_net
@@ -32,14 +48,14 @@ services:
           - node.label.region == sup
 
   worker:
-    image: icorrea/spark:2.4.1-alpine3.9
+    image: icorrea/spark:2.4.3-alpine3.9
     command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
     networks:
       - spark_net
     environment:
       SPARK_CONF_DIR: /conf
       SPARK_WORKER_CORES: 2
-      SPARK_WORKER_MEMORY: 16g
+      SPARK_WORKER_MEMORY: 8g
     depends_on:
       - master
     volumes:
@@ -78,15 +94,19 @@ services:
         constraints: 
           - node.label.region == sup
  
-  pyspark:
-    image: icorrea/anaconda:3-2019.03-alpine
-    command: pyspark --master spark://master:7077
-    ports:
-      - 8888:8888
+  # A web based interface for managing your docker containers.
+  portainer:
+    image: portainer/portainer
+    command: --templates http://templates/templates.json
     networks:
       - spark_net
-    depends_on:
-      - master
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/srv/cassandra/portainer-data:/data
+    # Enable you to access potainers web interface from your host machine
+    # using http://localhost:10001
+    ports:
+      - "10001:9000"
     
 networks:
   spark_net:

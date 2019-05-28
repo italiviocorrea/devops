@@ -118,7 +118,7 @@ RUN curl -sL --retry 3 \
  && mv /usr/$SPARK_PACKAGE $SPARK_HOME \
  && chown -R root:root $SPARK_HOME
 
-COPY sqljdbc42.jar $SPARK_HOME/jars
+COPY *.jar $SPARK_HOME/jars/
 
 RUN mkdir -p $SPARK_DATA \
     && chown -R root:root $SPARK_DATA

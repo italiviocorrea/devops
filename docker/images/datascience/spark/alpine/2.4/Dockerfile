@@ -30,6 +30,7 @@ RUN set -x \
 
 
 # HADOOP
+RUN adduser -Ds /bin/bash hadoop
 ENV HADOOP_VERSION 2.8.3
 ENV HADOOP_HOME /usr/hadoop-$HADOOP_VERSION
 ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
@@ -38,9 +39,10 @@ RUN curl -sL --retry 3 \
   "http://archive.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz" \
   | tar -xz -C /usr/ \
  && rm -rf $HADOOP_HOME/share/doc \
- && chown -R root:root $HADOOP_HOME
+ && chown -R hadoop:hadoop $HADOOP_HOME
 
 # SPARK
+RUN adduser -Ds /bin/bash spark
 ENV SPARK_DATA /spark/data
 ENV SPARK_VERSION 2.4.3
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-without-hadoop
@@ -51,15 +53,17 @@ RUN curl -sL --retry 3 \
   "https://www.apache.org/dyn/mirrors/mirrors.cgi?action=download&filename=spark/spark-${SPARK_VERSION}/${SPARK_PACKAGE}.tgz" \
   | tar xz -C /usr/ \
  && mv /usr/$SPARK_PACKAGE $SPARK_HOME \
- && chown -R root:root $SPARK_HOME
+ && chown -R spark:spark $SPARK_HOME
 
-COPY sqljdbc42.jar $SPARK_HOME/jars
+COPY *.jar $SPARK_HOME/jars/
 
 RUN mkdir -p $SPARK_DATA \
-    && chown -R root:root $SPARK_DATA
+    && chown -R spark:spark $SPARK_DATA \
+    && chown -R spark:spark $SPARK_HOME
 
 VOLUME $SPARK_DATA
 
 EXPOSE 4040 6066 7077 8080
 
+USER root
 WORKDIR $SPARK_HOME
