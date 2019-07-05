@@ -1,9 +1,9 @@
-export MASTER=spark://master:7077
+#export MASTER=spark://master:7077
 
-export SPARK_HOME=/usr/spark-2.3.2
+export SPARK_HOME=/usr/spark-2.4.3
 
 # set hadoop conf dir
-export HADOOP_CONF_DIR=/usr/hadoop-2.8.3
+#export HADOOP_CONF_DIR=/usr/hadoop-2.8.3
 
 # set options to pass spark-submit command
 #export SPARK_SUBMIT_OPTIONS="--packages com.databricks:spark-csv_2.10:1.2.0"

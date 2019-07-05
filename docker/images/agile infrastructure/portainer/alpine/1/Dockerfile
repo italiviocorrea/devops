@@ -1,6 +1,6 @@
-FROM icorrea/alpine:3.8
+FROM icorrea/alpine:3.9
 
-ENV PORTAINER_VERSION="1.19.2"
+ENV PORTAINER_VERSION="1.21.0"
 ENV PORTAINER_FILENAME="portainer-$PORTAINER_VERSION-linux-amd64.tar.gz" 
 
 ENV PORTAINER_URL="https://github.com/portainer/portainer/releases/download/$PORTAINER_VERSION/${PORTAINER_FILENAME}"

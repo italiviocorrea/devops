@@ -1,4 +1,4 @@
-FROM icorrea/alpine:3.9
+FROM icorrea/alpine:3.10
 
 MAINTAINER Italivio Correa <italiviocorrea@gmail.com>
 

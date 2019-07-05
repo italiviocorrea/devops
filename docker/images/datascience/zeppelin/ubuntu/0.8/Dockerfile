@@ -87,6 +87,7 @@ ENV ZEPPELIN_DATA /zeppelin/data
 
 RUN mkdir -p $ZEPPELIN_DATA \
     && chown -R root:root $ZEPPELIN_DATA
+
 VOLUME $ZEPPELIN_DATA
   
 VOLUME /zeppelin/notebook/
@@ -119,6 +120,7 @@ RUN curl -sL --retry 3 \
  && chown -R root:root $SPARK_HOME
 
 COPY *.jar $SPARK_HOME/jars/
+
 
 RUN mkdir -p $SPARK_DATA \
     && chown -R root:root $SPARK_DATA

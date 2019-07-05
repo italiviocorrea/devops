@@ -16,7 +16,7 @@ services:
       - MAX_HEAP_SIZE=512M
       - HEAP_NEWSIZE=200M
     volumes:
-      - ~/srv/cassandra/dfedata1:/usr/local/apache-cassandra-3.11.4
+      - ~/srv/cassandra/data1:/usr/local/apache-cassandra-3.11.4
 
   cassandra-2:
     image: icorrea/cassandra:3.11-debian

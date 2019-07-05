@@ -4,6 +4,7 @@ services:
 
   sqlserver:
     image: microsoft/mssql-server-linux:latest
+    hostname: "sqlserver"
     expose:
       - 1433
     ports:
@@ -20,6 +21,7 @@ services:
 
   master:
     image: icorrea/spark:2.4.3-alpine3.9
+    hostname: "master"
     command: bin/spark-class org.apache.spark.deploy.master.Master -h master
     networks:
       - spark_net
@@ -49,6 +51,7 @@ services:
 
   worker:
     image: icorrea/spark:2.4.3-alpine3.9
+    hostname: "worker"
     command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
     networks:
       - spark_net
@@ -67,6 +70,104 @@ services:
       placement:
         constraints: 
           - node.label.region == sup
+
+  cassandra-1:
+    hostname: "cassandra-1"
+    image: icorrea/cassandra:3.11-debian
+    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 0; fi && /docker-entrypoint.sh cassandra -f'
+    networks:
+      - spark_net
+    environment:
+      - CASSANDRA_CLUSTER_NAME= cluster_1
+      - CASSANDRA_SEEDS=cassandra-1
+      - CASSANDRA_START_RPC=true
+      - CASSANDRA_RPC_ADDRESS="0.0.0.0"
+      - CASSANDRA_BROADCAST_ADDRESS=cassandra-1
+      - CASSANDRA_LISTEN_ADDRESS=cassandra-1
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=200M
+    expose:
+      # Intra-node communication
+      - 7000
+      # TLS intra-node communication
+      - 7001
+      # JMX
+      - 7199
+      # CQL
+      - "9042"
+      # Thrift service
+      - 9160
+    ports:
+      - "19042:9042"
+    volumes:
+      - ~/srv/cassandra/n1data:/var/lib/cassandra
+
+  cassandra-2:
+    hostname: "cassandra-2"
+    image: icorrea/cassandra:3.11-debian
+    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 60; fi && /docker-entrypoint.sh cassandra -f'
+    networks:
+      - spark_net
+    environment:
+      - CASSANDRA_CLUSTER_NAME= cluster_1
+      - CASSANDRA_SEEDS=cassandra-1
+      - CASSANDRA_START_RPC=true
+      - CASSANDRA_RPC_ADDRESS="0.0.0.0"
+      - CASSANDRA_BROADCAST_ADDRESS=cassandra-2
+      - CASSANDRA_LISTEN_ADDRESS=cassandra-2
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=200M
+    volumes:
+      - ~/srv/cassandra/n2data:/var/lib/cassandra
+    depends_on:
+      - cassandra-1
+    expose:
+      # Intra-node communication
+      - 7000
+      # TLS intra-node communication
+      - 7001
+      # JMX
+      - 7199
+      # CQL
+      - "9042"
+      # Thrift service
+      - 9160
+    ports:
+      - "29042:9042"
+
+  cassandra-3:
+    hostname: "cassandra-3"
+    image: icorrea/cassandra:3.11-debian
+    command: bash -c 'if [ -z "$$(ls -A /var/lib/cassandra/)" ] ; then sleep 90; fi && /docker-entrypoint.sh cassandra -f'
+    networks:
+      - spark_net
+    environment:
+      - CASSANDRA_CLUSTER_NAME= cluster_1
+      - CASSANDRA_SEEDS=cassandra-1
+      - CASSANDRA_START_RPC=true
+      - CASSANDRA_RPC_ADDRESS="0.0.0.0"
+      - CASSANDRA_BROADCAST_ADDRESS=cassandra-3
+      - CASSANDRA_LISTEN_ADDRESS=cassandra-3
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=200M
+    volumes:
+      - ~/srv/cassandra/n3data:/var/lib/cassandra
+    depends_on:
+      - cassandra-1
+      - cassandra-2
+    expose:
+      # Intra-node communication
+      - 7000
+      # TLS intra-node communication
+      - 7001
+      # JMX
+      - 7199
+      # CQL
+      - "9042"
+      # Thrift service
+      - 9160
+    ports:
+      - "39042:9042"
 
   zeppelin:
     image: icorrea/zeppelin:0.8.1-ubuntu
@@ -94,19 +195,6 @@ services:
         constraints: 
           - node.label.region == sup
  
-  # A web based interface for managing your docker containers.
-  portainer:
-    image: portainer/portainer
-    command: --templates http://templates/templates.json
-    networks:
-      - spark_net
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ~/srv/cassandra/portainer-data:/data
-    # Enable you to access potainers web interface from your host machine
-    # using http://localhost:10001
-    ports:
-      - "10001:9000"
     
 networks:
   spark_net:

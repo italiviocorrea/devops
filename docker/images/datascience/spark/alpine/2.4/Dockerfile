@@ -1,4 +1,4 @@
-FROM icorrea/anaconda:3-2019.03-alpine
+FROM icorrea/anaconda3:2019.03-alpine3.10
 
 LABEL maintainer="Italivio Correa <italiviocorrea@gmail.com>"
  
@@ -20,8 +20,8 @@ RUN { \
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 ENV PATH $PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
 
-ENV JAVA_VERSION 8u201
-ENV JAVA_ALPINE_VERSION 8.201.08-r1
+ENV JAVA_VERSION 8u212
+ENV JAVA_ALPINE_VERSION 8.212.04-r0
 
 RUN set -x \
 	&& apk add --no-cache \
