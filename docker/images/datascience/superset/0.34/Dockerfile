@@ -3,7 +3,7 @@ FROM icorrea/python:3.6-stretch-slim
 MAINTAINER Italivio Correa <italiviocorrea@gmail.com
 
 # Build argument[version of apache-superset to be build: pass value while building image]
-ARG SUPERSET_VERSION=0.33.0rc1
+ARG SUPERSET_VERSION=0.34.0
 
 ENV SUPERSET_HOME=/home/superset/
 ENV SUPERSET_DOWNLOAD_URL=https://github.com/apache/incubator-superset/archive/$SUPERSET_VERSION.tar.gz
