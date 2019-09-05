@@ -65,6 +65,7 @@ initialize_superset () {
     fi
 }
 
+
 # start of the script
 echo Environment Variable: SUPERSET_ENV: $SUPERSET_ENV
 if $(is_empty_string $SUPERSET_ENV); then

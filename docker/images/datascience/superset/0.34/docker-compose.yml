@@ -8,7 +8,6 @@ services:
       - 6379:6379
     volumes:
       - ~/svr/superset/redis:/data
-
   mysql:
     image: mysql:5.7
     restart: always
@@ -21,7 +20,6 @@ services:
       - 3306:3306
     volumes:
       - ~/svr/superset/mysql:/var/lib/mysql
-
   superset:
     image: icorrea/apache-superset:0.33-python3.6
     restart: always

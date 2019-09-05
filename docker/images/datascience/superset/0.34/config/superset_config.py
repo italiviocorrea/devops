@@ -16,6 +16,7 @@ def get_env_variable(var_name, default=None):
             raise EnvironmentError(error_msg)
 
 invocation_type = get_env_variable('INVOCATION_TYPE')
+
 if invocation_type == 'COMPOSE':
     MYSQL_USER = get_env_variable('MYSQL_USER')
     MYSQL_PASS = get_env_variable('MYSQL_PASS')

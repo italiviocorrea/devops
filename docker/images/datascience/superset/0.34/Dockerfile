@@ -6,6 +6,7 @@ MAINTAINER Italivio Correa <italiviocorrea@gmail.com
 ARG SUPERSET_VERSION=0.34.0
 
 ENV SUPERSET_HOME=/home/superset/
+
 ENV SUPERSET_DOWNLOAD_URL=https://github.com/apache/incubator-superset/archive/$SUPERSET_VERSION.tar.gz
 
 # Add a normal superset group & user
@@ -37,7 +38,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -; \
 
 WORKDIR $SUPERSET_HOME
 
-# Download & install superset 0.29.rc4 version
+# Download & install superset 0.34.0 version
 RUN wget -O superset.tar.gz $SUPERSET_DOWNLOAD_URL
 RUN tar -xzf superset.tar.gz -C $SUPERSET_HOME --strip-components=1 && rm superset.tar.gz
 

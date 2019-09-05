@@ -1,6 +1,7 @@
 #!/bin/sh
 
 IMAGE_NAME=`cat release`
+
 echo "Criando a image : ${IMAGE_NAME}" && \ 
  docker build -t $IMAGE_NAME . && \
  echo "Empurrando a imagem para o repositório : ${REGISTRY}/${IMAGE_NAME}"  && \
