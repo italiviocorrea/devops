@@ -7,7 +7,7 @@ MAINTAINER Italivio Correa <italiviocorrea@gmail.com>
 ENV ALPINE_EDGE_COMMUNITY_REPO=http://dl-cdn.alpinelinux.org/alpine/edge/community \
     CONDA_REPO=https://repo.continuum.io \
     CONDA_TYPE=archive \
-    CONDA_INSTALLER=Anaconda3-2019.03-Linux-x86_64.sh \
+    CONDA_INSTALLER=Anaconda3-2019.07-Linux-x86_64.sh \
     CONDA_DIR=/opt/conda \
     CONDA_USER=conda \
     CONDA_USER_HOME=/home/conda \

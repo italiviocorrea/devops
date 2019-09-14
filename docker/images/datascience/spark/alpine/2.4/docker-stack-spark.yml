@@ -35,6 +35,8 @@ services:
       - 6066:6066
       - 7077:7077
       - 8090:8080
+      - 20002:20002
+      - 6060:6060
     volumes:
       - ~/projetos_zeppelin/spark/bank:/zeppelin/data
     deploy:

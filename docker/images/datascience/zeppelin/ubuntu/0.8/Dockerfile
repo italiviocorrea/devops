@@ -58,7 +58,7 @@ RUN echo "$LOG_TAG Install R related packages" && \
     gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 && \
     gpg -a --export E084DAB9 | apt-key add - && \
     apt-get -y update && \
-    apt-get -y install r-base r-base-dev && \
+    apt-get -y install r-base r-base-dev --allow-unauthenticated  && \
     R -e "install.packages('knitr', repos='http://cran.us.r-project.org')" && \
     R -e "install.packages('ggplot2', repos='http://cran.us.r-project.org')" && \
     R -e "install.packages('googleVis', repos='http://cran.us.r-project.org')" && \
@@ -108,7 +108,7 @@ RUN curl -sL --retry 3 \
 
 # SPARK
 ENV SPARK_DATA /spark/data
-ENV SPARK_VERSION 2.4.3
+ENV SPARK_VERSION 2.4.4
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-without-hadoop
 ENV SPARK_HOME /usr/spark-${SPARK_VERSION}
 ENV SPARK_DIST_CLASSPATH="$HADOOP_HOME/etc/hadoop/*:$HADOOP_HOME/share/hadoop/common/lib/*:$HADOOP_HOME/share/hadoop/common/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/hdfs/lib/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/yarn/lib/*:$HADOOP_HOME/share/hadoop/yarn/*:$HADOOP_HOME/share/hadoop/mapreduce/lib/*:$HADOOP_HOME/share/hadoop/mapreduce/*:$HADOOP_HOME/share/hadoop/tools/lib/*"

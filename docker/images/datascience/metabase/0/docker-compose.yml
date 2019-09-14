@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+
+  db:
+    image: icorrea/postgresql:10.7-alpine3.10
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: senha123
+    networks:
+      - spark_net
+    volumes:
+      - ~/srv/postgresql/v10_7:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  metabase:
+    image: metabase/metabase
+    hostname: metabase
+    ports:
+      - 3000:3000
+    networks:
+      - spark_net
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: metabase
+      MB_DB_PORT: 5432
+      MB_DB_USER: metabase
+      MB_DB_PASS: senha123
+      MB_DB_HOST: db
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "italiviocorrea@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "senha123"
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+    networks:
+      - spark_net
+
+
+networks:
+  spark_net:
+    external: true
+

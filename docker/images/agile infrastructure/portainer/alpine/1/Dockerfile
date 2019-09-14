@@ -1,4 +1,4 @@
-FROM icorrea/alpine:3.9
+FROM icorrea/alpine:3.10
 
 ENV PORTAINER_VERSION="1.21.0"
 ENV PORTAINER_FILENAME="portainer-$PORTAINER_VERSION-linux-amd64.tar.gz" 
@@ -7,7 +7,7 @@ ENV PORTAINER_URL="https://github.com/portainer/portainer/releases/download/$POR
 
 RUN mkdir -p /opt/portainer/data && cd /opt/portainer
 
-#ADD portainer-1.19.2-linux-amd64.tar.gz /opt
+#ADD portainer-1.21.0-linux-amd64.tar.gz /opt
 ADD "${PORTAINER_URL}" /opt/portainer
 
 

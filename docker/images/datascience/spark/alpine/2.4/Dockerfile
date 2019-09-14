@@ -1,4 +1,4 @@
-FROM icorrea/anaconda3:2019.03-alpine3.10
+FROM icorrea/anaconda3:2019.07-alpine3.10
 
 LABEL maintainer="Italivio Correa <italiviocorrea@gmail.com>"
  
@@ -44,7 +44,7 @@ RUN curl -sL --retry 3 \
 # SPARK
 RUN adduser -Ds /bin/bash spark
 ENV SPARK_DATA /spark/data
-ENV SPARK_VERSION 2.4.3
+ENV SPARK_VERSION 2.4.4
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-without-hadoop
 ENV SPARK_HOME /usr/spark-${SPARK_VERSION}
 ENV SPARK_DIST_CLASSPATH="$HADOOP_HOME/etc/hadoop/*:$HADOOP_HOME/share/hadoop/common/lib/*:$HADOOP_HOME/share/hadoop/common/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/hdfs/lib/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/yarn/lib/*:$HADOOP_HOME/share/hadoop/yarn/*:$HADOOP_HOME/share/hadoop/mapreduce/lib/*:$HADOOP_HOME/share/hadoop/mapreduce/*:$HADOOP_HOME/share/hadoop/tools/lib/*"
