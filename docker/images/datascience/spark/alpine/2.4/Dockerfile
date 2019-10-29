@@ -1,4 +1,4 @@
-FROM icorrea/anaconda3:2019.07-alpine3.10
+FROM icorrea/anaconda3:2019.10-alpine3.10
 
 LABEL maintainer="Italivio Correa <italiviocorrea@gmail.com>"
  
@@ -20,8 +20,8 @@ RUN { \
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 ENV PATH $PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
 
-ENV JAVA_VERSION 8u212
-ENV JAVA_ALPINE_VERSION 8.212.04-r0
+ENV JAVA_VERSION 8u222
+ENV JAVA_ALPINE_VERSION 8.222.10-r0
 
 RUN set -x \
 	&& apk add --no-cache \
@@ -45,7 +45,7 @@ RUN curl -sL --retry 3 \
 RUN adduser -Ds /bin/bash spark
 ENV SPARK_DATA /spark/data
 ENV SPARK_VERSION 2.4.4
-ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-without-hadoop
+ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-without-hadoop-scala-2.12
 ENV SPARK_HOME /usr/spark-${SPARK_VERSION}
 ENV SPARK_DIST_CLASSPATH="$HADOOP_HOME/etc/hadoop/*:$HADOOP_HOME/share/hadoop/common/lib/*:$HADOOP_HOME/share/hadoop/common/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/hdfs/lib/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/yarn/lib/*:$HADOOP_HOME/share/hadoop/yarn/*:$HADOOP_HOME/share/hadoop/mapreduce/lib/*:$HADOOP_HOME/share/hadoop/mapreduce/*:$HADOOP_HOME/share/hadoop/tools/lib/*"
 ENV PATH $PATH:${SPARK_HOME}/bin

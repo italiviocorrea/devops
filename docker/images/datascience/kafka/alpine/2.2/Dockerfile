@@ -1,4 +1,4 @@
-FROM icorrea/openjdk:8u212-jdk-alpine3.9
+FROM icorrea/openjdk:8u222-jdk-alpine3.10
 
 ARG kafka_version=2.2.0
 ARG scala_version=2.12

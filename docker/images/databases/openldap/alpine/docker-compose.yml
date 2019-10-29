@@ -1,0 +1,57 @@
+version: '3'
+
+services:
+
+  openldap:
+    image: osixia/openldap
+    command: --copy-service
+    networks:
+      - proxy_net
+    volumes:
+      - ~/srv/openldap/config:/etc/ldap/slapd.d
+      - ~/srv/openldap/database:/var/lib/ldap
+
+  phpldapadmin:
+    image: osixia/phpldapadmin
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: openldap
+    networks:
+      - proxy_net
+    depends_on:
+      - openldap
+    ports:
+      - 6443:443
+
+  dfe-nifi-registry:
+    image: icorrea/nifi-registry:0.5.0-alpine3.10
+    environment:
+      - AUTH=ldap 
+      - KEYSTORE_PATH=/opt/certs/keystore.jks 
+      - KEYSTORE_TYPE=JKS 
+      - KEYSTORE_PASSWORD=N2JmourRxVlItbzZ7S7r+NQFEugHi7QuL9NmQj9N5Yk 
+      - TRUSTSTORE_PATH=/opt/certs/truststore.jks 
+      - TRUSTSTORE_PASSWORD=/6ffEL8lU8/zHX+uQNcgNag0OWcYFL6H7AozJjbmj9s 
+      - TRUSTSTORE_TYPE=JKS 
+      - INITIAL_ADMIN_IDENTITY='cn=dfe-nifi,dc=example,dc=org'
+      - LDAP_AUTHENTICATION_STRATEGY='SIMPLE' 
+      - LDAP_MANAGER_DN='cn=admin,dc=example,dc=org' 
+      - LDAP_MANAGER_PASSWORD='admin' 
+      - LDAP_USER_SEARCH_BASE='dc=example,dc=org' 
+      - LDAP_USER_SEARCH_FILTER='cn={0}' 
+      - LDAP_IDENTITY_STRATEGY='USE_DN' 
+      - LDAP_URL='ldap://openldap:389' 
+
+    networks:
+      - proxy_net
+    depends_on:
+      - openldap
+    ports:
+      - 8090:18080 # Unsecured HTTP Web Port
+      - 8444:18443 # secured HTTPs Web Port
+    volumes:
+      - ~/srv/dfe/nifi-registry/database:/opt/nifi-registry/database
+      - ~/srv/dfe/nifi-registry/flow_storage:/opt/nifi-registry/flow_storage
+
+networks:
+  proxy_net:
+   external: true

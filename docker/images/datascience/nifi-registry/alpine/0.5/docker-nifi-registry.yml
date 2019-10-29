@@ -1,0 +1,29 @@
+version: "3.5"
+
+services:
+
+  d0090-nifi-registry:
+    image: icorrea/nifi-registry:0.5.0-alpine3.10
+    hostname: d0090-nifi-registry
+    environment:
+      - AUTH=tls
+      - KEYSTORE_PATH=/opt/certs/keystore.jks
+      - KEYSTORE_TYPE=JKS
+      - KEYSTORE_PASSWORD=N2JmourRxVlItbzZ7S7r+NQFEugHi7QuL9NmQj9N5Yk
+      - TRUSTSTORE_PATH=/opt/certs/truststore.jks
+      - TRUSTSTORE_PASSWORD=/6ffEL8lU8/zHX+uQNcgNag0OWcYFL6H7AozJjbmj9s
+      - TRUSTSTORE_TYPE=JKS
+      - INITIAL_ADMIN_IDENTITY=CN=sys_admin, OU=NIFI
+    ports:
+      - 18443:18443
+    networks:
+      - cotin_dados_net
+    volumes:
+      - ~/srv/dfe/nifi-registry/database:/opt/nifi-registry/database
+      - ~/srv/dfe/nifi-registry/flow_storage:/opt/nifi-registry/flow_storage
+      - ~/srv/dfe/nifi-registry/tls/certs/d0090-nifi-registry:/opt/certs
+
+networks:
+  cotin_dados_net:
+    external: true
+

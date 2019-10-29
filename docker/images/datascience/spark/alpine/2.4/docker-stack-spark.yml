@@ -20,7 +20,7 @@ services:
       - ~/srv/mssql/dbpaises:/var/opt/mssql
 
   master:
-    image: icorrea/spark:2.4.3-alpine3.9
+    image: icorrea/spark:2.4.4-alpine3.10
     hostname: "master"
     command: bin/spark-class org.apache.spark.deploy.master.Master -h master
     networks:
@@ -52,9 +52,31 @@ services:
           - node.label.region == sup
 
   worker:
-    image: icorrea/spark:2.4.3-alpine3.9
+    image: icorrea/spark:2.4.4-alpine3.10
     hostname: "worker"
     command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
+    networks:
+      - spark_net
+    environment:
+      SPARK_CONF_DIR: /conf
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 8g
+    depends_on:
+      - master
+    volumes:
+      - ~/projetos_zeppelin/spark/bank:/zeppelin/data
+    deploy:
+      replicas: 2
+      labels:
+        - "traefik.enable=false"
+      placement:
+        constraints: 
+          - node.label.region == sup
+
+  thriftserver:
+    image: icorrea/spark:2.4.4-alpine3.10
+    hostname: "thriftserver"
+    command: bin/start-thriftserver.sh --packages com.datastax.spark:spark-cassandra-connector_2.11:2.0.2 –conf spark.cassandra.connection.host="cassandra-1,cassandra-2,cassandra-3" --master r spark://master:7077
     networks:
       - spark_net
     environment:

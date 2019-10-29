@@ -1,4 +1,4 @@
-FROM icorrea/openjdk:8u212-jre-alpine3.9
+FROM icorrea/openjdk:8u222-jre-alpine3.10
                                     
 LABEL maintainer="Italivio Correa <italiviocorrea@gmail.com>"
 

@@ -1,0 +1,38 @@
+FROM icorrea/openjdk:8u222-jdk-alpine3.10
+
+ARG kafka_version=2.3.0
+ARG scala_version=2.12
+
+MAINTAINER Italivio Correa
+
+RUN apk add --update unzip wget curl docker jq coreutils bash
+
+ENV KAFKA_VERSION=$kafka_version \
+    SCALA_VERSION=$scala_version \
+    KAFKA_HOME=/opt/kafka \
+    PATH=${PATH}:${KAFKA_HOME}/bin
+
+ADD download-kafka.sh /tmp/download-kafka.sh
+
+RUN chmod a+x /tmp/download-kafka.sh && sync && \
+    /tmp/download-kafka.sh && \
+    tar xfz /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -C /opt && \
+    rm /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz && \
+    ln -s /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION} /opt/kafka 
+
+#
+# Expose the ports and set up volumes for the data and logs directories
+#
+EXPOSE 9092
+VOLUME ["/kafka/data","/kafka/logs","/kafka/config"]
+
+ADD start-kafka.sh /usr/bin/start-kafka.sh
+ADD broker-list.sh /usr/bin/broker-list.sh
+
+# The scripts need to have executable permission
+RUN chmod a+x /usr/bin/start-kafka.sh && \
+    chmod a+x /usr/bin/broker-list.sh 
+
+# Use "exec" form so that it runs as PID 1 (useful for graceful shutdown)
+CMD ["start-kafka.sh"]
+
