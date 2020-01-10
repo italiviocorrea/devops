@@ -1,5 +1,5 @@
 # vim:set ft=dockerfile:
-FROM icorrea/alpine:3.9
+FROM icorrea/alpine:3.10
 
 # alpine includes "postgres" user/group in base install
 #   /etc/passwd:22:postgres:x:70:70::/var/lib/postgresql:/bin/sh
@@ -22,8 +22,8 @@ RUN set -ex; \
 RUN mkdir /docker-entrypoint-initdb.d
 
 ENV PG_MAJOR 9.6
-ENV PG_VERSION 9.6.10
-ENV PG_SHA256 8615acc56646401f0ede97a767dfd27ce07a8ae9c952afdb57163b7234fe8426
+ENV PG_VERSION 9.6.16
+ENV PG_SHA256 5c6cba9cc0df70ba2b128c4a87d0babfce7c0e2b888f70a9c8485745f66b22e7
 
 RUN set -ex \
 	\
@@ -138,7 +138,7 @@ RUN sed -ri "s!^#?(listen_addresses)\s*=\s*\S+.*!\1 = '*'!" /usr/local/share/pos
 
 RUN echo "host    all    all    0.0.0.0/0    trust" >> /usr/local/share/postgresql/pg_hba.conf.sample
 
-RUN mkdir -p /var/run/postgresql && chown -R postgres:postgres /var/run/postgresql && chmod 2777 /var/run/postgresql
+RUN mkdir -p /var/run/postgresql && chown -R postgres:postgres /var/run/postgresql && chmod 777 /var/run/postgresql
 
 ENV PGDATA /var/lib/postgresql/data
 RUN mkdir -p "$PGDATA" && chown -R postgres:postgres "$PGDATA" && chmod 777 "$PGDATA" # this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
