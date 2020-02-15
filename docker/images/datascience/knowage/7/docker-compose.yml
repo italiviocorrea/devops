@@ -1,0 +1,35 @@
+version: "3.1"
+services:
+  knowage:
+    image: icorrea/knowage:7.1.0
+    depends_on:
+      - knowagedb
+    ports:
+      - "8080:8080"
+    networks:
+      - icorrea_net
+    environment:
+      - DB_USER=knowageuser
+      - DB_PASS=senha#123
+      - DB_DB=knowage
+      - DB_HOST=knowagedb
+      - DB_PORT=3306
+      - HMAC_KEY=abc123
+      - PUBLIC_ADDRESS=localhost
+ 
+  knowagedb:
+    image: mysql:5.7
+    environment:
+      - MYSQL_USER=knowageuser
+      - MYSQL_PASSWORD=senha#123
+      - MYSQL_DATABASE=knowage
+      - MYSQL_ROOT_PASSWORD=senha#123
+    networks:
+      - icorrea_net
+    volumes:
+      - "~/srv/knowage/db:/var/lib/mysql"
+
+
+networks:
+  icorrea_net:
+    external: true
