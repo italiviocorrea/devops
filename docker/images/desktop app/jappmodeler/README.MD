@@ -5,7 +5,7 @@
 	A ferramenta possue a opção de importar os metadados do banco de dados, para modelagem visual do banco.
 	
 
-![ ](/home/icorrea/Pictures/jappmodeler01.png  "Visualizando um DER")
+![ ](./jappmodeler01.png  "Visualizando um DER")
 	
 ***Pré requisitos para executar o jAppModeler.***
 
