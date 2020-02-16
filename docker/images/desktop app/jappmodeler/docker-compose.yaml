@@ -1,0 +1,45 @@
+version: '3.1'
+
+services:
+
+  dbmodeler:
+    image: icorrea/dbmodeler:1.0
+    environment:
+      POSTGRES_DB: dbappmodeler
+      POSTGRES_PASSWORD: dpkz791
+      POSTGRES_USER: InfoProManagerUser 
+    networks:
+      - icorrea_net
+    volumes:
+      - "/home/icorrea/svr/dbmodeler:/var/lib/postgresql"
+    ports:
+      - 5432:5432
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: italiviocorrea@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: senha123
+    networks:
+      - icorrea_net
+    depends_on:
+      - dbmodeler
+    ports:
+      - 8080:80
+
+  jappmodeler:
+    image: icorrea/jappmodeler:1.0
+    environment:
+      DISPLAY: $DISPLAY
+    networks:
+      - icorrea_net
+    depends_on:
+      - dbmodeler
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix"
+
+
+networks:
+  icorrea_net:
+    external: true
+

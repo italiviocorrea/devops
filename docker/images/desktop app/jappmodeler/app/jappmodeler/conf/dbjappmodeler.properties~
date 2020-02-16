@@ -1,0 +1,3 @@
+JDBC.Driver=org.postgresql.Driver
+JDBC.ConnectionURL=jdbc:postgresql://localhost:5432/dbjAppBuilder_sgi?charSet=NONE
+

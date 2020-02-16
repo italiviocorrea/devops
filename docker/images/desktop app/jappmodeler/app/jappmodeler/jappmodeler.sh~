@@ -1,0 +1,26 @@
+#! /bin/sh
+
+
+# add the libraries to the INFOPRO_CLASSPATH.
+# EXEDIR is the directory where this executable is.
+# EXEDIR=${0%/*}
+EXEDIR="/opt/jappmodeler"
+
+DIRLIBS=${EXEDIR}/lib/*.jar
+for i in ${DIRLIBS}
+do
+  if [ -z "$INFOPRO_CLASSPATH" ] ; then
+    INFOPRO_CLASSPATH=$i
+  else
+    INFOPRO_CLASSPATH="$i":$INFOPRO_CLASSPATH
+  fi
+done
+
+
+INFOPRO_CLASSPATH="${EXEDIR}/imagens/":$INFOPRO_CLASSPATH
+INFOPRO_CLASSPATH="${EXEDIR}/conf/":$INFOPRO_CLASSPATH
+
+INFOPRO_CLASSPATH="${EXEDIR}/./classes":$INFOPRO_CLASSPATH
+INFOPRO_HOME="${EXEDIR}/."
+
+java -classpath "$INFOPRO_CLASSPATH:$CLASSPATH" -D-server -D-Xms32m -D-Xmx1024 -D-XX:PermSize=32m -D-XX:MaxPermSize=512m -DjAppBuilder.home=$INFOPRO_HOME  org.jmycrudframework.jappmodeler.Main "$@"

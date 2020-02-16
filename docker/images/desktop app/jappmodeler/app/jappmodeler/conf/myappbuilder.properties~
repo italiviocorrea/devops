@@ -1,0 +1,4 @@
+driver=org.postgresql.Driver
+[MyAppBuilder]
+url=jdbc:postgresql://localhost:5432/dbJAppBuilder_sgi?charSet=NONE
+modulo=MyAppBuilder
