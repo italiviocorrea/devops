@@ -4,6 +4,9 @@
 	Todos os banco de dados que possuem drive JDBC é acessível pelo jAppModeler para importar os metadados. Já foram testados os bancos: Postgresql, mysql, mariadb, mssql Server, oracle e DB2.
 	A ferramenta possue a opção de importar os metadados do banco de dados, para modelagem visual do banco.
 	
+
+![ ](/home/icorrea/Pictures/jappmodeler01.png  "Visualizando um DER")
+	
 ***Pré requisitos para executar o jAppModeler.***
 
 - Instalar o docker 
@@ -11,6 +14,7 @@
 
 ***Para executar o jAppModeler***
 
-	Basta digitar o comando abaixo :
+        Baixe o arquivo docker-compose.yaml e depois basta digitar o comando abaixo:
 	docker-compose up -d
+	
 	
