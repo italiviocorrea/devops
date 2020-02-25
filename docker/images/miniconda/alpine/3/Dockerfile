@@ -2,7 +2,7 @@ FROM icorrea/alpine:3.10
 
 MAINTAINER Italivio Correa <italiviocorrea@gmail.com>
 
-ARG CONDA_VERSION="4.7.12.1"
+ARG CONDA_VERSION="latest"
 ARG CONDA_MD5="81c773ff87af5cfac79ab862942ab6b3"
 ARG CONDA_DIR="/opt/conda"
 
