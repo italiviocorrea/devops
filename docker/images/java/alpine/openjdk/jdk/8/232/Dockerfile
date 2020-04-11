@@ -1,4 +1,4 @@
-FROM icorrea/alpine:3.10
+FROM icorrea/alpine:3.11
 
 LABEL maintainer="Italivio Correa <italiviocorrea@gmail.com>"
 

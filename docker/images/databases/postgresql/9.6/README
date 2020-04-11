@@ -6,9 +6,8 @@ docker run -d  \
            --name ibgedb \
            -e POSTGRES_DB=ibgeapi-dev -e POSTGRES_PASSWORD=senha#123 -e POSTGRES_USER=useribgeapi \
            -p 5434:5432 \
-           -v /var/lib/postgresql:/var/lib/postgresql \
-           --restart always \
-           postgresql-alpine:9.6
+           -v ~/svr/postgresql/data:/var/lib/postgresql \
+           icorrea/postgresql:9.6-alpine3.11
 
 docker exec -it ibgedb psql -d ibgeapi-dev -U useribgeapi -W
 

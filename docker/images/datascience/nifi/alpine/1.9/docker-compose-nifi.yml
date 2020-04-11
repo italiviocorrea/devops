@@ -68,7 +68,7 @@ services:
       - ~/srv/dfe/nifi-registry/flow_storage:/opt/nifi-registry/flow_storage
 
   dfe-nifi-dev-1:
-    image: icorrea/nifi:1.9.0-alpine3.8
+    image: icorrea/nifi:1.9.2-alpine3.11
     networks:
       - dfe_stack_net
     depends_on:
@@ -92,7 +92,7 @@ services:
       - ~/srv/dfe/dev/nifi-1/provenance_repository:/opt/nifi/provenance_repository
 
   dfe-nifi-dev-2:
-    image: icorrea/nifi:1.9.0-alpine3.8
+    image: icorrea/nifi:1.9.2-alpine3.11
     networks:
       - dfe_stack_net
     depends_on:
@@ -116,7 +116,7 @@ services:
       - ~/srv/dfe/dev/nifi-2/provenance_repository:/opt/nifi/provenance_repository
 
   dfe-nifi-prd-1:
-    image: icorrea/nifi:1.9.0-alpine3.8
+    image: icorrea/nifi:1.9.2-alpine3.11
     networks:
       - dfe_stack_net
     depends_on:

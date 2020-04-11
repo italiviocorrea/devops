@@ -1,33 +1,22 @@
-FROM icorrea/alpine:3.10
+FROM icorrea/alpine:3.11
 
 LABEL maintainer="Italivio Correa <italiviocorrea@gmail.com>"
 
-ENV JAVA_HOME /opt/openjdk-13
-ENV PATH $JAVA_HOME/bin:$PATH
-
-# https://jdk.java.net/
-ENV JAVA_VERSION 13-ea+19
-ENV JAVA_URL https://download.java.net/java/early_access/alpine/19/binaries/openjdk-13-ea+19_linux-x64-musl_bin.tar.gz
-ENV JAVA_SHA256 010ea985fba7e3d89a9170545c4e697da983cffc442b84e65dba3baa771299a5
-# "For Alpine Linux, builds are produced on a reduced schedule and may not be in sync with the other platforms."
+ENV JAVA_VERSION='jdk-13.0.2+8' \
+    ESUM='9ccc063569f19899fd08e41466f8c4cd4e05058abdb5178fa374cb365dcf5998' \
+    BINARY_URL='https://github.com/AdoptOpenJDK/openjdk13-binaries/releases/download/jdk-13.0.2%2B8/OpenJDK13U-jdk_x64_linux_hotspot_13.0.2_8.tar.gz'
 
 RUN set -eux; \
-	\
-	wget -O /openjdk.tgz "$JAVA_URL"; \
-	echo "$JAVA_SHA256 */openjdk.tgz" | sha256sum -c -; \
-	mkdir -p "$JAVA_HOME"; \
-	tar --extract --file /openjdk.tgz --directory "$JAVA_HOME" --strip-components 1; \
-	rm /openjdk.tgz; \
-	\
-# https://github.com/docker-library/openjdk/issues/212#issuecomment-420979840
-# https://openjdk.java.net/jeps/341
-	java -Xshare:dump; \
-	\
-# basic smoke test
-	java --version; \
-	javac --version
+    apk add --no-cache --virtual .fetch-deps curl; \
+    curl -LfsSo /tmp/openjdk.tar.gz ${BINARY_URL}; \
+    echo "${ESUM} */tmp/openjdk.tar.gz" | sha256sum -c -; \
+    mkdir -p /opt/java/openjdk; \
+    cd /opt/java/openjdk; \
+    tar -xf /tmp/openjdk.tar.gz --strip-components=1; \
+    apk del --purge .fetch-deps; \
+    rm -rf /var/cache/apk/*; \
+    rm -rf /tmp/openjdk.tar.gz;
 
-# https://docs.oracle.com/javase/10/tools/jshell.htm
-# https://docs.oracle.com/javase/10/jshell/
-# https://en.wikipedia.org/wiki/JShell
+ENV JAVA_HOME=/opt/java/openjdk \
+    PATH="/opt/java/openjdk/bin:$PATH"
 CMD ["jshell"]

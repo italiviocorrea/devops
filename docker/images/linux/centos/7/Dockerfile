@@ -2,9 +2,8 @@ FROM centos:7
 
 LABEL maintainer="Italivio Correa <italiviocorrea@gmail.com>"
 
-ENV LANG=pt_BR.UTF-8
-
-RUN yum -y install ntp && \
+RUN yum update -y && \
+    yum -y install ntp && \
     yum autoremove -y && \
     yum -y install tzdata && \
     yum clean all && \
@@ -12,8 +11,9 @@ RUN yum -y install ntp && \
     echo "export LANG=pt_BR.UTF-8" > /etc/profile.d/locale.sh && \
     echo "America/Campo_Grande" >  /etc/timezone && \
     sed -i 's/en_US/pt_BR/g' /etc/yum.conf && \
-    yum reinstall glibc-common -y
+    yum -y reinstall glibc-common
 
+ENV LANG=pt_BR.UTF-8 LC_ALL=pt_BR.UTF-8
 
 RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
     rm -f /lib/systemd/system/multi-user.target.wants/*;\

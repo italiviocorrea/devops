@@ -1,0 +1,74 @@
+version: '3'
+
+services:
+    # basenode:
+    #     build: ./base
+    #     stdin_open: true
+    #     tty: true
+    masternode:
+        build: ./master
+        image: icorrea/node-multichain:2.0.5
+        stdin_open: true
+        tty: true
+        expose:
+            - 7557
+            - 8002
+        networks:
+            - itc_net
+        environment:
+            CHAINNAME: ItcChain
+            NETWORK_PORT: 7557
+            RPC_PORT: 8002
+            RPC_USER: multichainrpc
+            RPC_PASSWORD: senha123
+            RPC_ALLOW_IP: 0.0.0.0/0.0.0.0
+            PARAM_TARGET_BLOCK_SIZE: target-block-time|30
+            PARAM_ANYONE_CAN_CONNECT: anyone-can-connect|true
+            PARAM_ANYONE_CAN_MINE: anyone-can-mine|true
+    slavenode:
+        build: ./node
+        image: icorrea/node-multichain:2.0.5
+        stdin_open: true
+        tty: true
+        expose:
+            - 7557
+            - 8002
+        environment:
+            CHAINNAME: ItcChain
+            NETWORK_PORT: 7557
+            RPC_PORT: 8002
+            RPC_USER: multichainrpc
+            RPC_PASSWORD: senha123
+            RPC_ALLOW_IP: 0.0.0.0/0.0.0.0
+            MASTER_NODE: masternode
+        networks:
+            - itc_net
+        depends_on:
+            - masternode
+    explorernode:
+        build: ./explorer
+        stdin_open: true
+        tty: true
+        ports:
+          - 2750:2750
+        expose:
+            - 2750
+            - 7557
+            - 8002
+        environment:
+            CHAINNAME: ItcChain
+            NETWORK_PORT: 7557
+            RPC_PORT: 8002
+            RPC_USER: multichainrpc
+            RPC_PASSWORD: senha123
+            RPC_ALLOW_IP: 0.0.0.0/0.0.0.0
+            MASTER_NODE: masternode
+        networks:
+            - itc_net
+        depends_on:
+            - masternode
+
+networks:
+  itc_net:
+    external: true
+
