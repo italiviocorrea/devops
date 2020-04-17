@@ -1,9 +1,9 @@
-FROM icorrea/alpine:3.10
+FROM icorrea/alpine:3.11
 
 MAINTAINER Italivio Correa <italiviocorrea@gmail.com>
 
-ARG CONDA_VERSION="latest"
-ARG CONDA_MD5="81c773ff87af5cfac79ab862942ab6b3"
+ARG CONDA_VERSION="py37_4.8.2"
+ARG CONDA_MD5="87e77f097f6ebb5127c77662dfc3165e"
 ARG CONDA_DIR="/opt/conda"
 
 ENV PATH="$CONDA_DIR/bin:$PATH"
@@ -15,7 +15,7 @@ RUN echo "**** install dev packages ****" && \
     \
     echo "**** get Miniconda ****" && \
     mkdir -p "$CONDA_DIR" && \
-    wget "http://repo.continuum.io/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh" -O miniconda.sh && \
+    wget "https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh" -O miniconda.sh && \
     echo "$CONDA_MD5  miniconda.sh" | md5sum -c && \
     \
     echo "**** install Miniconda ****" && \

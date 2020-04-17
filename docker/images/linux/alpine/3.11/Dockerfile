@@ -7,7 +7,6 @@ ENV TMZ_LOCATION=America \
 
 ENV INPUTFILE='pt_BR' CHARMAP='UTF-8'
 
-ENV LANG='pt_BR.UTF-8'  LANGUAGE='pt_BR.UTF-8' LC_ALL='pt_BR.UTF-8'
 
 # Instal GNU libc (aka glibc) and set pt_BR.UTF-8 locale as default.
 
@@ -27,8 +26,6 @@ RUN apk add --no-cache --virtual .build-deps curl binutils \
     && apk add --no-cache /tmp/glibc-bin-${GLIBC_VER}.apk \
     && curl -Ls ${ALPINE_GLIBC_REPO}/${GLIBC_VER}/glibc-i18n-${GLIBC_VER}.apk > /tmp/glibc-i18n-${GLIBC_VER}.apk \
     && apk add --no-cache /tmp/glibc-i18n-${GLIBC_VER}.apk \
-    && /usr/glibc-compat/bin/localedef --force --inputfile POSIX --charmap $CHARMAP "$LANG" || true \
-    && echo "export LANG=$LANG" > /etc/profile.d/locale.sh \
     && curl -LfsS ${GCC_LIBS_URL} -o /tmp/gcc-libs.tar.xz \
     && echo "${GCC_LIBS_SHA256} */tmp/gcc-libs.tar.xz" | sha256sum -c - \
     && mkdir /tmp/gcc \
@@ -46,6 +43,8 @@ RUN apk add --no-cache --virtual .build-deps curl binutils \
     && cp /usr/share/zoneinfo/$TMZ_LOCATION/$TMZ_NAME /etc/localtime \
     && echo "$TMZ_LOCATION/$TMZ_NAME" >  /etc/timezone \
     && apk del tzdata
+
+ENV LANG='pt_BR.UTF-8'  LANGUAGE='pt_BR.UTF-8' LC_ALL='pt_BR.UTF-8'
 
 COPY ntpd.conf /etc/ntpd.conf
 
