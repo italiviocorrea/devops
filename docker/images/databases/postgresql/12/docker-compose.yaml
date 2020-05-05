@@ -3,24 +3,33 @@ version: '3.1'
 services:
 
   db:
-    image: icorrea/postgresql:11.2-alpine3.9
+    image: icorrea/postgresql:12.2-alpine3.11
     restart: always
     environment:
       POSTGRES_PASSWORD: senha123
+    volumes:
+      - ~/srv/postgresql/v12:/var/lib/postgresql/data
     networks:
-      - dsa_net	
+      - icorrea_net	
     ports:
       - 5432:5432
 
-  adminer:
-    image: adminer
-    restart: always
-    networks:
-      - dsa_net	
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "italiviocorrea@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "senha123"
     ports:
-      - 8080:8080
+      - 8181:80
+    depends_on:
+      - db
+    networks:
+      - icorrea_net
 
 networks:
-  dsa_net:
-    external: true
+  icorrea_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.37.0.0/16
 

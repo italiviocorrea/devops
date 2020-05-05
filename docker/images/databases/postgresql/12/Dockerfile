@@ -1,29 +1,25 @@
 # vim:set ft=dockerfile:
 FROM icorrea/alpine:3.11
 
-# alpine includes "postgres" user/group in base install
-#   /etc/passwd:22:postgres:x:70:70::/var/lib/postgresql:/bin/sh
-#   /etc/group:34:postgres:x:70:
-# the home directory for the postgres user, however, is not created by default
-# see https://github.com/docker-library/postgres/issues/274
-RUN set -ex; \
-	postgresHome="$(getent passwd postgres)"; \
-	postgresHome="$(echo "$postgresHome" | cut -d: -f6)"; \
-	[ "$postgresHome" = '/var/lib/postgresql' ]; \
-	mkdir -p "$postgresHome"; \
-	chown -R postgres:postgres "$postgresHome"
+# 70 is the standard uid/gid for "postgres" in Alpine
+# https://git.alpinelinux.org/aports/tree/main/postgresql/postgresql.pre-install?h=3.11-stable
+RUN set -eux; \
+	addgroup -g 70 -S postgres; \
+	adduser -u 70 -S -D -G postgres -H -h /var/lib/postgresql -s /bin/sh postgres; \
+	mkdir -p /var/lib/postgresql; \
+	chown -R postgres:postgres /var/lib/postgresql
 
 # su-exec (gosu-compatible) is installed further down
 
 # make the "en_US.UTF-8" locale so postgres will be utf-8 enabled by default
 # alpine doesn't require explicit locale-file generation
-#ENV LANG en_US.utf8
+ENV LANG en_US.utf8
 
 RUN mkdir /docker-entrypoint-initdb.d
 
 ENV PG_MAJOR 12
-ENV PG_VERSION 12.1
-ENV PG_SHA256 a09bf3abbaf6763980d0f8acbb943b7629a8b20073de18d867aecdb7988483ed
+ENV PG_VERSION 12.2
+ENV PG_SHA256 ad1dcc4c4fc500786b745635a9e1eba950195ce20b8913f50345bb7d5369b5de
 
 RUN set -ex \
 	\
@@ -53,6 +49,8 @@ RUN set -ex \
 		libedit-dev \
 		libxml2-dev \
 		libxslt-dev \
+		linux-headers \
+		llvm9-dev clang g++ \
 		make \
 #		openldap-dev \
 		openssl-dev \
@@ -110,6 +108,7 @@ RUN set -ex \
 		--with-libxml \
 		--with-libxslt \
 		--with-icu \
+		--with-llvm \
 	&& make -j "$(nproc)" world \
 	&& make install-world \
 	&& make -C contrib install \
@@ -138,16 +137,14 @@ RUN set -ex \
 # make the sample config easier to munge (and "correct by default")
 RUN sed -ri "s!^#?(listen_addresses)\s*=\s*\S+.*!\1 = '*'!" /usr/local/share/postgresql/postgresql.conf.sample
 
-RUN echo "host    all    all    0.0.0.0/0    trust" >> /usr/local/share/postgresql/pg_hba.conf.sample
-
 RUN mkdir -p /var/run/postgresql && chown -R postgres:postgres /var/run/postgresql && chmod 2777 /var/run/postgresql
 
 ENV PGDATA /var/lib/postgresql/data
-RUN mkdir -p "$PGDATA" && chown -R postgres:postgres "$PGDATA" && chmod 777 "$PGDATA" # this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
+# this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
+RUN mkdir -p "$PGDATA" && chown -R postgres:postgres "$PGDATA" && chmod 777 "$PGDATA"
 VOLUME /var/lib/postgresql/data
 
 COPY docker-entrypoint.sh /usr/local/bin/
-RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 5432

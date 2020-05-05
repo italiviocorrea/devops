@@ -8,7 +8,7 @@ services:
     environment:
       POSTGRES_PASSWORD: senha123
     networks:
-      - dsa_net
+      - icorrea_net
     volumes:
       - ~/srv/postgresql/v10_7:/var/lib/postgresql/data
     ports:
@@ -24,9 +24,12 @@ services:
     depends_on:
       - db
     networks:
-      - dsa_net
+      - icorrea_net
 
 networks:
-  dsa_net:
-    external: true
+  icorrea_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.37.0.0/16
 
