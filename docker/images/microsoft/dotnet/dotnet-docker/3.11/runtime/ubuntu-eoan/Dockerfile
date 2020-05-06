@@ -1,4 +1,4 @@
-FROM icorrea/ubuntu:20.04
+FROM icorrea/ubuntu:19.10
 
 ARG REPO=mcr.microsoft.com/dotnet/core/runtime
 

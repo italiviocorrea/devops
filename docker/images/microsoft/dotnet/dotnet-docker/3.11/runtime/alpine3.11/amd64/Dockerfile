@@ -2,7 +2,7 @@ FROM icorrea/alpine:3.11
 
 ARG REPO=mcr.microsoft.com/dotnet/core/runtime-deps
 
-RUN apk add --no-cache libstdc++
+RUN apk add --no-cache libstdc++ openssl 
 
 # Install .NET Core
 RUN dotnet_version=3.1.3 \
@@ -12,4 +12,7 @@ RUN dotnet_version=3.1.3 \
     && mkdir -p /usr/share/dotnet \
     && tar -C /usr/share/dotnet -oxzf dotnet.tar.gz \
     && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet \
-    && rm dotnet.tar.gz
+    && sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1/g' /etc/ssl/openssl.cnf \
+    && rm dotnet.tar.gz 
+    
+
