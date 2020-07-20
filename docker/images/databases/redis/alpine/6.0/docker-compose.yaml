@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  redis:
+    container_name: redis-server
+    image: icorrea/redis:6.0.5-alpine3.12
+    entrypoint: ["redis-server", "--appendonly", "yes"]
+    networks: 
+      - redis_net
+    ports: 
+      - "6379:6379"
+
+networks: 
+  redis_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.89.0.0/16
+  
