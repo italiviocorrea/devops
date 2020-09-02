@@ -15,7 +15,7 @@ networks:
 services:
 
   yb-master:
-    image: icorrea/yugabytedb:latest
+    image: icorrea/yugabytedb:2.2.0.0-b80
     container_name: yb-master-n1
 #    networks:
 #      - yb_net
@@ -32,7 +32,7 @@ services:
       SERVICE_7000_NAME: yb-master
 
   yb-tserver:
-    image: icorrea/yugabytedb:latest
+    image: icorrea/yugabytedb:2.2.0.0-b80
     container_name: yb-tserver-n1
 #    networks:
 #      - yb_net
