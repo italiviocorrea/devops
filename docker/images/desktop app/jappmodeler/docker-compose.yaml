@@ -41,7 +41,5 @@ services:
 
 networks:
   icorrea_net:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.37.0.0/16
+    external: true
+

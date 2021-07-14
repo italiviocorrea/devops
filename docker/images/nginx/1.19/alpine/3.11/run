@@ -1,6 +1,0 @@
-#!/usr/bin/execlineb -P
-
-sh /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
-sh /docker-entrypoint.d/20-envsubst-on-templates.sh
-nginx -g "daemon off;" -c /etc/nginx/nginx.conf
-
