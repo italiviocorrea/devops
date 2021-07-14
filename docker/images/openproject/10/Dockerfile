@@ -9,3 +9,7 @@ ENV LANG pt_BR.utf8
 
 RUN rm /etc/localtime && cp /usr/share/zoneinfo/America/Campo_Grande /etc/localtime
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Ajuste no projeto jappmodeler, adição imagens nginx e openproject.

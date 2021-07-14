@@ -1,0 +1,49 @@
+version: "3.7"
+
+services:
+
+  db:
+    image: icorrea/postgresql:10.7-alpine3.9
+    environment:
+      POSTGRES_PASSWORD: senha123
+      POSTGRES_USER: opuser
+      POSTGRES_DB: openprojectdb
+    networks:
+      - icorrea_net
+    volumes:
+      - ~/srv/postgresql/v10_7:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  openproject:
+    image: icorrea/openproject:10
+    environment:
+      SECRET_KEY_BASE: senha123
+      DATABASE_URL: postgresql://opuser:senha123@db:5432/openprojectdb
+    networks:
+      - icorrea_net
+    volumes:
+      - ~/svr/openproject/pgdata:/var/openproject/pgdata
+      - ~/svr/openproject/static:/var/openproject/assets
+    ports:
+      - 8080:80
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "italiviocorrea@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "senha123"
+    ports:
+      - 8181:80
+    depends_on:
+      - db
+    networks:
+      - icorrea_net
+
+networks:
+  icorrea_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.57.0.0/16
+    
