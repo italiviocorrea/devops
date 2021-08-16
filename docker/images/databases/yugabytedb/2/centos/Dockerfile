@@ -1,4 +1,4 @@
-FROM yugabytedb/yugabyte:2.2.0.0-b80
+FROM yugabytedb/yugabyte:2.7.2.0-b216
 
 LABEL maintainer="Italivio Correa <italiviocorrea@gmail.com>"
 

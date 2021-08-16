@@ -6,19 +6,14 @@ networks:
     ipam:
       config:
         - subnet: 172.33.0.0/16
-  proxy_net:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.34.0.0/16
-
+  
 services:
 
   yb-master:
-    image: icorrea/yugabytedb:2.2.0.0-b80
+    image: yugabytedb/yugabyte:latest
     container_name: yb-master-n1
-#    networks:
-#      - yb_net
+    networks:
+      - yb_net
     volumes:
       - ~/srv/yugabytedb/yb-master-data-1:/mnt/master
     command: [ "/home/yugabyte/bin/yb-master",
@@ -32,11 +27,10 @@ services:
       SERVICE_7000_NAME: yb-master
 
   yb-tserver:
-    image: icorrea/yugabytedb:2.2.0.0-b80
+    image: yugabytedb/yugabyte:latest
     container_name: yb-tserver-n1
-#    networks:
-#      - yb_net
-#      - proxy_net
+    networks:
+      - yb_net
     volumes:
       - ~/srv/yugabytedb/yb-tserver-data-1:/mnt/tserver
     command: [ "/home/yugabyte/bin/yb-tserver",
