@@ -1,0 +1,7 @@
+
+
+docker run -d --name yb-master-n1 --hostname yb-master-n1 -p 7000:7000 --network=yb_net2 -v ~/srv/yugabytedb/yb-master-data-0:/mnt/data0 yugabytedb/yugabyte:latest bin/yb-master --fs_data_dirs=/mnt/data0 --master_addresses=yb-master-n1:7100,yb-master-n2:7100,yb-master-n3:7100 --rpc_bind_addresses=yb-master-n1:7100 --replication_factor=3
+
+docker run -d --name yb-master-n2 --hostname yb-master-n2 --network=yb_net2 -v ~/srv/yugabytedb/yb-master-data-2:/mnt/data0 yugabytedb/yugabyte:latest bin/yb-master --fs_data_dirs=/mnt/data0 --master_addresses=yb-master-n1:7100,yb-master-n2:7100,yb-master-n3:7100 --rpc_bind_addresses=yb-master-n2:7100 --replication_factor=3
+
+docker run -d --name yb-master-n3 --hostname yb-master-n3 --network=yb_net2 -v ~/srv/yugabytedb/yb-master-data-3:/mnt/data0 yugabytedb/yugabyte:latest bin/yb-master --fs_data_dirs=/mnt/data0 --master_addresses=yb-master-n1:7100,yb-master-n2:7100,yb-master-n3:7100 --rpc_bind_addresses=yb-master-n3:7100 --replication_factor=3

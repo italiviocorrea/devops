@@ -1,0 +1,2120 @@
+{
+  "version": "2",
+  "timestamp": "0001-01-01T00:00:00.000Z",
+  "sys": {
+    "cpus": [
+      {
+        "addr": "pool1.server2:9000",
+        "cpus": [
+          {
+            "vendor_id": "GenuineIntel",
+            "family": "6",
+            "model": "94",
+            "stepping": 3,
+            "physical_id": "0",
+            "model_name": "Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz",
+            "mhz": 4200,
+            "cache_size": 8192,
+            "flags": [
+              "fpu",
+              "vme",
+              "de",
+              "pse",
+              "tsc",
+              "msr",
+              "pae",
+              "mce",
+              "cx8",
+              "apic",
+              "sep",
+              "mtrr",
+              "pge",
+              "mca",
+              "cmov",
+              "pat",
+              "pse36",
+              "clflush",
+              "dts",
+              "acpi",
+              "mmx",
+              "fxsr",
+              "sse",
+              "sse2",
+              "ss",
+              "ht",
+              "tm",
+              "pbe",
+              "syscall",
+              "nx",
+              "pdpe1gb",
+              "rdtscp",
+              "lm",
+              "constant_tsc",
+              "art",
+              "arch_perfmon",
+              "pebs",
+              "bts",
+              "rep_good",
+              "nopl",
+              "xtopology",
+              "nonstop_tsc",
+              "cpuid",
+              "aperfmperf",
+              "pni",
+              "pclmulqdq",
+              "dtes64",
+              "monitor",
+              "ds_cpl",
+              "vmx",
+              "est",
+              "tm2",
+              "ssse3",
+              "sdbg",
+              "fma",
+              "cx16",
+              "xtpr",
+              "pdcm",
+              "pcid",
+              "sse4_1",
+              "sse4_2",
+              "x2apic",
+              "movbe",
+              "popcnt",
+              "tsc_deadline_timer",
+              "aes",
+              "xsave",
+              "avx",
+              "f16c",
+              "rdrand",
+              "lahf_lm",
+              "abm",
+              "3dnowprefetch",
+              "cpuid_fault",
+              "epb",
+              "invpcid_single",
+              "pti",
+              "ssbd",
+              "ibrs",
+              "ibpb",
+              "stibp",
+              "tpr_shadow",
+              "vnmi",
+              "flexpriority",
+              "ept",
+              "vpid",
+              "ept_ad",
+              "fsgsbase",
+              "tsc_adjust",
+              "bmi1",
+              "hle",
+              "avx2",
+              "smep",
+              "bmi2",
+              "erms",
+              "invpcid",
+              "rtm",
+              "mpx",
+              "rdseed",
+              "adx",
+              "smap",
+              "clflushopt",
+              "intel_pt",
+              "xsaveopt",
+              "xsavec",
+              "xgetbv1",
+              "xsaves",
+              "dtherm",
+              "ida",
+              "arat",
+              "pln",
+              "pts",
+              "hwp",
+              "hwp_notify",
+              "hwp_act_window",
+              "hwp_epp",
+              "md_clear",
+              "flush_l1d"
+            ],
+            "microcode": "0xea",
+            "cores": 8
+          }
+        ]
+      },
+      {
+        "addr": "pool1.server1:9000",
+        "cpus": [
+          {
+            "vendor_id": "GenuineIntel",
+            "family": "6",
+            "model": "94",
+            "stepping": 3,
+            "physical_id": "0",
+            "model_name": "Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz",
+            "mhz": 4200,
+            "cache_size": 8192,
+            "flags": [
+              "fpu",
+              "vme",
+              "de",
+              "pse",
+              "tsc",
+              "msr",
+              "pae",
+              "mce",
+              "cx8",
+              "apic",
+              "sep",
+              "mtrr",
+              "pge",
+              "mca",
+              "cmov",
+              "pat",
+              "pse36",
+              "clflush",
+              "dts",
+              "acpi",
+              "mmx",
+              "fxsr",
+              "sse",
+              "sse2",
+              "ss",
+              "ht",
+              "tm",
+              "pbe",
+              "syscall",
+              "nx",
+              "pdpe1gb",
+              "rdtscp",
+              "lm",
+              "constant_tsc",
+              "art",
+              "arch_perfmon",
+              "pebs",
+              "bts",
+              "rep_good",
+              "nopl",
+              "xtopology",
+              "nonstop_tsc",
+              "cpuid",
+              "aperfmperf",
+              "pni",
+              "pclmulqdq",
+              "dtes64",
+              "monitor",
+              "ds_cpl",
+              "vmx",
+              "est",
+              "tm2",
+              "ssse3",
+              "sdbg",
+              "fma",
+              "cx16",
+              "xtpr",
+              "pdcm",
+              "pcid",
+              "sse4_1",
+              "sse4_2",
+              "x2apic",
+              "movbe",
+              "popcnt",
+              "tsc_deadline_timer",
+              "aes",
+              "xsave",
+              "avx",
+              "f16c",
+              "rdrand",
+              "lahf_lm",
+              "abm",
+              "3dnowprefetch",
+              "cpuid_fault",
+              "epb",
+              "invpcid_single",
+              "pti",
+              "ssbd",
+              "ibrs",
+              "ibpb",
+              "stibp",
+              "tpr_shadow",
+              "vnmi",
+              "flexpriority",
+              "ept",
+              "vpid",
+              "ept_ad",
+              "fsgsbase",
+              "tsc_adjust",
+              "bmi1",
+              "hle",
+              "avx2",
+              "smep",
+              "bmi2",
+              "erms",
+              "invpcid",
+              "rtm",
+              "mpx",
+              "rdseed",
+              "adx",
+              "smap",
+              "clflushopt",
+              "intel_pt",
+              "xsaveopt",
+              "xsavec",
+              "xgetbv1",
+              "xsaves",
+              "dtherm",
+              "ida",
+              "arat",
+              "pln",
+              "pts",
+              "hwp",
+              "hwp_notify",
+              "hwp_act_window",
+              "hwp_epp",
+              "md_clear",
+              "flush_l1d"
+            ],
+            "microcode": "0xea",
+            "cores": 8
+          }
+        ]
+      }
+    ],
+    "partitions": [
+      {
+        "addr": "pool1.server2:9000",
+        "partitions": [
+          {
+            "device": "/dev/sda2",
+            "mountpoint": "/data1",
+            "fs_type": "ext4",
+            "mount_options": "rw,relatime,bind",
+            "mount_fs_type": "ext2/ext3",
+            "space_total": 269142282240,
+            "space_free": 16555659264,
+            "inode_total": 16760832,
+            "inode_free": 14995145
+          },
+          {
+            "device": "/dev/sda2",
+            "mountpoint": "/data2",
+            "fs_type": "ext4",
+            "mount_options": "rw,relatime,bind",
+            "mount_fs_type": "ext2/ext3",
+            "space_total": 269142282240,
+            "space_free": 16555659264,
+            "inode_total": 16760832,
+            "inode_free": 14995145
+          },
+          {
+            "device": "/dev/sda2",
+            "mountpoint": "/data",
+            "fs_type": "ext4",
+            "mount_options": "rw,relatime,bind",
+            "mount_fs_type": "ext2/ext3",
+            "space_total": 269142282240,
+            "space_free": 16555659264,
+            "inode_total": 16760832,
+            "inode_free": 14995145
+          },
+          {
+            "device": "/dev/sda2",
+            "mountpoint": "/etc/resolv.conf",
+            "fs_type": "ext4",
+            "mount_options": "rw,relatime,bind",
+            "mount_fs_type": "ext2/ext3",
+            "space_total": 269142282240,
+            "space_free": 16555659264,
+            "inode_total": 16760832,
+            "inode_free": 14995145
+          },
+          {
+            "device": "/dev/sda2",
+            "mountpoint": "/etc/hostname",
+            "fs_type": "ext4",
+            "mount_options": "rw,relatime,bind",
+            "mount_fs_type": "ext2/ext3",
+            "space_total": 269142282240,
+            "space_free": 16555659264,
+            "inode_total": 16760832,
+            "inode_free": 14995145
+          },
+          {
+            "device": "/dev/sda2",
+            "mountpoint": "/etc/hosts",
+            "fs_type": "ext4",
+            "mount_options": "rw,relatime,bind",
+            "mount_fs_type": "ext2/ext3",
+            "space_total": 269142282240,
+            "space_free": 16555659264,
+            "inode_total": 16760832,
+            "inode_free": 14995145
+          }
+        ]
+      },
+      {
+        "addr": "pool1.server1:9000",
+        "partitions": [
+          {
+            "device": "/dev/sda2",
+            "mountpoint": "/data1",
+            "fs_type": "ext4",
+            "mount_options": "rw,relatime,bind",
+            "mount_fs_type": "ext2/ext3",
+            "space_total": 269142282240,
+            "space_free": 16555659264,
+            "inode_total": 16760832,
+            "inode_free": 14995145
+          },
+          {
+            "device": "/dev/sda2",
+            "mountpoint": "/data2",
+            "fs_type": "ext4",
+            "mount_options": "rw,relatime,bind",
+            "mount_fs_type": "ext2/ext3",
+            "space_total": 269142282240,
+            "space_free": 16555659264,
+            "inode_total": 16760832,
+            "inode_free": 14995145
+          },
+          {
+            "device": "/dev/sda2",
+            "mountpoint": "/data",
+            "fs_type": "ext4",
+            "mount_options": "rw,relatime,bind",
+            "mount_fs_type": "ext2/ext3",
+            "space_total": 269142282240,
+            "space_free": 16555659264,
+            "inode_total": 16760832,
+            "inode_free": 14995145
+          },
+          {
+            "device": "/dev/sda2",
+            "mountpoint": "/etc/resolv.conf",
+            "fs_type": "ext4",
+            "mount_options": "rw,relatime,bind",
+            "mount_fs_type": "ext2/ext3",
+            "space_total": 269142282240,
+            "space_free": 16555659264,
+            "inode_total": 16760832,
+            "inode_free": 14995145
+          },
+          {
+            "device": "/dev/sda2",
+            "mountpoint": "/etc/hostname",
+            "fs_type": "ext4",
+            "mount_options": "rw,relatime,bind",
+            "mount_fs_type": "ext2/ext3",
+            "space_total": 269142282240,
+            "space_free": 16555659264,
+            "inode_total": 16760832,
+            "inode_free": 14995145
+          },
+          {
+            "device": "/dev/sda2",
+            "mountpoint": "/etc/hosts",
+            "fs_type": "ext4",
+            "mount_options": "rw,relatime,bind",
+            "mount_fs_type": "ext2/ext3",
+            "space_total": 269142282240,
+            "space_free": 16555659264,
+            "inode_total": 16760832,
+            "inode_free": 14995145
+          }
+        ]
+      }
+    ],
+    "osinfo": [
+      {
+        "addr": "pool1.server2:9000",
+        "info": {
+          "hostname": "minio2",
+          "uptime": 15311,
+          "bootTime": 1628950351,
+          "procs": 1,
+          "os": "linux",
+          "platform": "redhat",
+          "platformFamily": "rhel",
+          "platformVersion": "8.4",
+          "kernelVersion": "5.4.0-81-generic",
+          "kernelArch": "x86_64",
+          "virtualizationSystem": "docker",
+          "virtualizationRole": "guest",
+          "hostId": "345bfa80-d2b9-0000-0000-000000000000"
+        },
+        "sensors": [
+          {
+            "sensorKey": "acpitz",
+            "temperature": 46,
+            "sensorHigh": 0,
+            "sensorCritical": 120
+          },
+          {
+            "sensorKey": "coretemp_package_id_0",
+            "temperature": 47,
+            "sensorHigh": 80,
+            "sensorCritical": 100
+          },
+          {
+            "sensorKey": "coretemp_core_0",
+            "temperature": 43,
+            "sensorHigh": 80,
+            "sensorCritical": 100
+          },
+          {
+            "sensorKey": "coretemp_core_1",
+            "temperature": 47,
+            "sensorHigh": 80,
+            "sensorCritical": 100
+          },
+          {
+            "sensorKey": "coretemp_core_2",
+            "temperature": 40,
+            "sensorHigh": 80,
+            "sensorCritical": 100
+          },
+          {
+            "sensorKey": "coretemp_core_3",
+            "temperature": 46,
+            "sensorHigh": 80,
+            "sensorCritical": 100
+          },
+          {
+            "sensorKey": "ath10k_hwmon",
+            "temperature": 47,
+            "sensorHigh": 0,
+            "sensorCritical": 0
+          }
+        ]
+      },
+      {
+        "addr": "pool1.server1:9000",
+        "info": {
+          "hostname": "minio1",
+          "uptime": 15311,
+          "bootTime": 1628950351,
+          "procs": 1,
+          "os": "linux",
+          "platform": "redhat",
+          "platformFamily": "rhel",
+          "platformVersion": "8.4",
+          "kernelVersion": "5.4.0-81-generic",
+          "kernelArch": "x86_64",
+          "virtualizationSystem": "docker",
+          "virtualizationRole": "guest",
+          "hostId": "345bfa80-d2b9-0000-0000-000000000000"
+        },
+        "sensors": [
+          {
+            "sensorKey": "acpitz",
+            "temperature": 46,
+            "sensorHigh": 0,
+            "sensorCritical": 120
+          },
+          {
+            "sensorKey": "coretemp_package_id_0",
+            "temperature": 47,
+            "sensorHigh": 80,
+            "sensorCritical": 100
+          },
+          {
+            "sensorKey": "coretemp_core_0",
+            "temperature": 43,
+            "sensorHigh": 80,
+            "sensorCritical": 100
+          },
+          {
+            "sensorKey": "coretemp_core_1",
+            "temperature": 47,
+            "sensorHigh": 80,
+            "sensorCritical": 100
+          },
+          {
+            "sensorKey": "coretemp_core_2",
+            "temperature": 40,
+            "sensorHigh": 80,
+            "sensorCritical": 100
+          },
+          {
+            "sensorKey": "coretemp_core_3",
+            "temperature": 46,
+            "sensorHigh": 80,
+            "sensorCritical": 100
+          },
+          {
+            "sensorKey": "ath10k_hwmon",
+            "temperature": 47,
+            "sensorHigh": 0,
+            "sensorCritical": 0
+          }
+        ]
+      }
+    ],
+    "meminfo": [
+      {
+        "addr": "pool1.server2:9000",
+        "total": 67403718656,
+        "available": 62767833088,
+        "swap_space_total": 2147479552,
+        "swap_space_free": 2147479552
+      },
+      {
+        "addr": "pool1.server1:9000",
+        "total": 67403718656,
+        "available": 62767833088,
+        "swap_space_total": 2147479552,
+        "swap_space_free": 2147479552
+      }
+    ],
+    "procinfo": [
+      {
+        "addr": "pool1.server2:9000",
+        "pid": 1,
+        "is_background": true,
+        "cpu_percent": 0.6497842361921645,
+        "cmd_line": "minio server --console-address :9001 spfx3280268164{1...2}/data{1...2}",
+        "num_connections": 11,
+        "create_time": 1628956509000,
+        "cwd": "/",
+        "exec_path": "/usr/bin/minio",
+        "gids": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "iocounters": {
+          "readCount": 124469,
+          "writeCount": 60499,
+          "readBytes": 8536064,
+          "writeBytes": 623321088
+        },
+        "is_running": true,
+        "mem_info": {
+          "rss": 281391104,
+          "vms": 1235111936,
+          "hwm": 0,
+          "data": 0,
+          "stack": 0,
+          "locked": 0,
+          "swap": 0
+        },
+        "mem_maps": [
+          {
+            "path": "",
+            "rss": 276028,
+            "size": 1206168,
+            "pss": 250788,
+            "sharedClean": 50476,
+            "sharedDirty": 0,
+            "privateClean": 4416,
+            "privateDirty": 221136,
+            "referenced": 276028,
+            "anonymous": 221136,
+            "swap": 0
+          }
+        ],
+        "mem_percent": 0.41787225,
+        "name": "minio",
+        "nice": 20,
+        "num_ctx_switches": {
+          "voluntary": 1808,
+          "involuntary": 80
+        },
+        "num_fds": 19,
+        "num_threads": 14,
+        "page_faults": {
+          "minorFaults": 102828,
+          "majorFaults": 0,
+          "childMinorFaults": 0,
+          "childMajorFaults": 0
+        },
+        "status": "sleep",
+        "tgid": 1,
+        "times": {
+          "cpu": "cpu",
+          "user": 40.2,
+          "system": 19.29,
+          "idle": 0,
+          "nice": 0,
+          "iowait": 0,
+          "irq": 0,
+          "softirq": 0,
+          "steal": 0,
+          "guest": 0,
+          "guestNice": 0
+        },
+        "uids": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "username": "root"
+      },
+      {
+        "addr": "pool1.server1:9000",
+        "pid": 1,
+        "is_background": true,
+        "cpu_percent": 0.60728052161991,
+        "cmd_line": "minio server --console-address :9001 spfx3280268164{1...2}/data{1...2}",
+        "num_connections": 8,
+        "create_time": 1628956509000,
+        "cwd": "/",
+        "exec_path": "/usr/bin/minio",
+        "gids": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "iocounters": {
+          "readCount": 126047,
+          "writeCount": 57442,
+          "readBytes": 8527872,
+          "writeBytes": 745709568
+        },
+        "is_running": true,
+        "mem_info": {
+          "rss": 178368512,
+          "vms": 1096560640,
+          "hwm": 0,
+          "data": 0,
+          "stack": 0,
+          "locked": 0,
+          "swap": 0
+        },
+        "mem_maps": [
+          {
+            "path": "",
+            "rss": 175168,
+            "size": 1070864,
+            "pss": 149928,
+            "sharedClean": 50476,
+            "sharedDirty": 0,
+            "privateClean": 192,
+            "privateDirty": 124500,
+            "referenced": 175168,
+            "anonymous": 124500,
+            "swap": 0
+          }
+        ],
+        "mem_percent": 0.2646271,
+        "name": "minio",
+        "nice": 20,
+        "num_ctx_switches": {
+          "voluntary": 1848,
+          "involuntary": 63
+        },
+        "num_fds": 16,
+        "num_threads": 14,
+        "page_faults": {
+          "minorFaults": 94400,
+          "majorFaults": 0,
+          "childMinorFaults": 0,
+          "childMajorFaults": 0
+        },
+        "status": "sleep",
+        "tgid": 1,
+        "times": {
+          "cpu": "cpu",
+          "user": 36.65,
+          "system": 18.93,
+          "idle": 0,
+          "nice": 0,
+          "iowait": 0.01,
+          "irq": 0,
+          "softirq": 0,
+          "steal": 0,
+          "guest": 0,
+          "guestNice": 0
+        },
+        "uids": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "username": "root"
+      }
+    ]
+  },
+  "perf": {
+    "drives": [
+      {
+        "addr": "pool1.server2:9000",
+        "serial_perf": [
+          {
+            "path": "/data1",
+            "latency": {
+              "avg": 0.009,
+              "max": 0.013,
+              "min": 0.008,
+              "percentile_50": 0.009,
+              "percentile_90": 0.009,
+              "percentile_99": 0.012
+            },
+            "throughput": {
+              "avg": 484095726,
+              "max": 512007750,
+              "min": 313590056,
+              "percentile_50": 488250420,
+              "percentile_90": 507067705,
+              "percentile_99": 511876532
+            }
+          },
+          {
+            "path": "/data2",
+            "latency": {
+              "avg": 0.009,
+              "max": 0.013,
+              "min": 0.008,
+              "percentile_50": 0.009,
+              "percentile_90": 0.009,
+              "percentile_99": 0.012
+            },
+            "throughput": {
+              "avg": 482527626,
+              "max": 512776802,
+              "min": 312528776,
+              "percentile_50": 483386048,
+              "percentile_90": 507238177,
+              "percentile_99": 512503484
+            }
+          }
+        ],
+        "parallel_perf": [
+          {
+            "path": "/data2",
+            "latency": {
+              "avg": 0.016,
+              "max": 0.024,
+              "min": 0.009,
+              "percentile_50": 0.016,
+              "percentile_90": 0.017,
+              "percentile_99": 0.024
+            },
+            "throughput": {
+              "avg": 274978715,
+              "max": 483881980,
+              "min": 173764297,
+              "percentile_50": 263771354,
+              "percentile_90": 331862767,
+              "percentile_99": 442816425
+            }
+          },
+          {
+            "path": "/data1",
+            "latency": {
+              "avg": 0.016,
+              "max": 0.032,
+              "min": 0.009,
+              "percentile_50": 0.016,
+              "percentile_90": 0.022,
+              "percentile_99": 0.029
+            },
+            "throughput": {
+              "avg": 268592510,
+              "max": 485452919,
+              "min": 133079796,
+              "percentile_50": 263352326,
+              "percentile_90": 317742397,
+              "percentile_99": 479694528
+            }
+          }
+        ]
+      },
+      {
+        "addr": "pool1.server1:9000",
+        "serial_perf": [
+          {
+            "path": "/data1",
+            "latency": {
+              "avg": 0.009,
+              "max": 0.015,
+              "min": 0.008,
+              "percentile_50": 0.008,
+              "percentile_90": 0.009,
+              "percentile_99": 0.014
+            },
+            "throughput": {
+              "avg": 490268400,
+              "max": 527827878,
+              "min": 283096503,
+              "percentile_50": 494577610,
+              "percentile_90": 520120516,
+              "percentile_99": 527735315
+            }
+          },
+          {
+            "path": "/data2",
+            "latency": {
+              "avg": 0.009,
+              "max": 0.014,
+              "min": 0.008,
+              "percentile_50": 0.009,
+              "percentile_90": 0.009,
+              "percentile_99": 0.012
+            },
+            "throughput": {
+              "avg": 489075072,
+              "max": 516159329,
+              "min": 301541402,
+              "percentile_50": 491604591,
+              "percentile_90": 509724220,
+              "percentile_99": 515760060
+            }
+          }
+        ],
+        "parallel_perf": [
+          {
+            "path": "/data1",
+            "latency": {
+              "avg": 0.045,
+              "max": 0.08,
+              "min": 0.008,
+              "percentile_50": 0.05,
+              "percentile_90": 0.06,
+              "percentile_99": 0.077
+            },
+            "throughput": {
+              "avg": 118897240,
+              "max": 507556649,
+              "min": 52654960,
+              "percentile_50": 83511258,
+              "percentile_90": 262288623,
+              "percentile_99": 387895111
+            }
+          },
+          {
+            "path": "/data2",
+            "latency": {
+              "avg": 0.048,
+              "max": 0.081,
+              "min": 0.014,
+              "percentile_50": 0.052,
+              "percentile_90": 0.077,
+              "percentile_99": 0.081
+            },
+            "throughput": {
+              "avg": 113695295,
+              "max": 290512530,
+              "min": 52030262,
+              "percentile_50": 79960841,
+              "percentile_90": 261574255,
+              "percentile_99": 279396068
+            }
+          }
+        ]
+      }
+    ],
+    "net": [
+      {
+        "addr": "pool1.server2:9000"
+      },
+      {
+        "addr": "pool1.server1:9000",
+        "remote_peers": [
+          {
+            "addr": "pool1.server2:9000",
+            "latency": {
+              "avg": 1.648,
+              "max": 2.478,
+              "min": 0.755,
+              "percentile_50": 1.648,
+              "percentile_90": 1.895,
+              "percentile_99": 2.159
+            },
+            "throughput": {
+              "avg": 7753919266,
+              "max": 17066545682,
+              "min": 211399646,
+              "percentile_50": 8016983364,
+              "percentile_90": 8930246625,
+              "percentile_99": 12161271531
+            }
+          }
+        ]
+      }
+    ],
+    "net_parallel": {
+      "addr": "pool1.server2:9000",
+      "remote_peers": [
+        {
+          "addr": "pool1.server1:9000",
+          "latency": {
+            "avg": 1.556,
+            "max": 2.668,
+            "min": 0.755,
+            "percentile_50": 1.579,
+            "percentile_90": 1.822,
+            "percentile_99": 2.059
+          },
+          "throughput": {
+            "avg": 8313991706,
+            "max": 16979980377,
+            "min": 227763961,
+            "percentile_50": 8525472360,
+            "percentile_90": 9547551067,
+            "percentile_99": 15023233949
+          }
+        }
+      ]
+    }
+  },
+  "minio": {
+    "config": {
+      "config": {
+        "api": {
+          "_": [
+            {
+              "key": "requests_max",
+              "value": "0"
+            },
+            {
+              "key": "requests_deadline",
+              "value": "10s"
+            },
+            {
+              "key": "cluster_deadline",
+              "value": "10s"
+            },
+            {
+              "key": "cors_allow_origin",
+              "value": "*"
+            },
+            {
+              "key": "remote_transport_deadline",
+              "value": "2h"
+            },
+            {
+              "key": "list_quorum",
+              "value": "optimal"
+            },
+            {
+              "key": "replication_workers",
+              "value": "250"
+            },
+            {
+              "key": "replication_failed_workers",
+              "value": "8"
+            }
+          ]
+        },
+        "audit_kafka": {
+          "_": [
+            {
+              "key": "enable",
+              "value": "off"
+            },
+            {
+              "key": "topic",
+              "value": ""
+            },
+            {
+              "key": "brokers",
+              "value": ""
+            },
+            {
+              "key": "sasl_username",
+              "value": ""
+            },
+            {
+              "key": "sasl_password",
+              "value": ""
+            },
+            {
+              "key": "sasl_mechanism",
+              "value": "plain"
+            },
+            {
+              "key": "client_tls_cert",
+              "value": ""
+            },
+            {
+              "key": "client_tls_key",
+              "value": ""
+            },
+            {
+              "key": "tls_client_auth",
+              "value": "0"
+            },
+            {
+              "key": "sasl",
+              "value": "off"
+            },
+            {
+              "key": "tls",
+              "value": "off"
+            },
+            {
+              "key": "tls_skip_verify",
+              "value": "off"
+            },
+            {
+              "key": "version",
+              "value": ""
+            }
+          ]
+        },
+        "audit_webhook": {
+          "_": [
+            {
+              "key": "enable",
+              "value": "off"
+            },
+            {
+              "key": "endpoint",
+              "value": ""
+            },
+            {
+              "key": "auth_token",
+              "value": ""
+            },
+            {
+              "key": "client_cert",
+              "value": ""
+            },
+            {
+              "key": "client_key",
+              "value": ""
+            }
+          ]
+        },
+        "cache": {
+          "_": [
+            {
+              "key": "drives",
+              "value": ""
+            },
+            {
+              "key": "exclude",
+              "value": ""
+            },
+            {
+              "key": "expiry",
+              "value": "90"
+            },
+            {
+              "key": "quota",
+              "value": "80"
+            },
+            {
+              "key": "after",
+              "value": "0"
+            },
+            {
+              "key": "watermark_low",
+              "value": "70"
+            },
+            {
+              "key": "watermark_high",
+              "value": "80"
+            },
+            {
+              "key": "range",
+              "value": "on"
+            },
+            {
+              "key": "commit",
+              "value": "writethrough"
+            }
+          ]
+        },
+        "compression": {
+          "_": [
+            {
+              "key": "enable",
+              "value": "off"
+            },
+            {
+              "key": "allow_encryption",
+              "value": "off"
+            },
+            {
+              "key": "extensions",
+              "value": ".txt,.log,.csv,.json,.tar,.xml,.bin"
+            },
+            {
+              "key": "mime_types",
+              "value": "text/*,application/json,application/xml,binary/octet-stream"
+            }
+          ]
+        },
+        "credentials": {},
+        "etcd": {
+          "_": [
+            {
+              "key": "endpoints",
+              "value": ""
+            },
+            {
+              "key": "path_prefix",
+              "value": ""
+            },
+            {
+              "key": "coredns_path",
+              "value": "/skydns"
+            },
+            {
+              "key": "client_cert",
+              "value": ""
+            },
+            {
+              "key": "client_cert_key",
+              "value": ""
+            }
+          ]
+        },
+        "heal": {
+          "_": [
+            {
+              "key": "bitrotscan",
+              "value": "off"
+            },
+            {
+              "key": "max_sleep",
+              "value": "1s"
+            },
+            {
+              "key": "max_io",
+              "value": "10"
+            }
+          ]
+        },
+        "identity_ldap": {
+          "_": [
+            {
+              "key": "server_addr",
+              "value": ""
+            },
+            {
+              "key": "username_format",
+              "value": ""
+            },
+            {
+              "key": "user_dn_search_base_dn",
+              "value": ""
+            },
+            {
+              "key": "user_dn_search_filter",
+              "value": ""
+            },
+            {
+              "key": "group_search_filter",
+              "value": ""
+            },
+            {
+              "key": "group_search_base_dn",
+              "value": ""
+            },
+            {
+              "key": "sts_expiry",
+              "value": "1h"
+            },
+            {
+              "key": "tls_skip_verify",
+              "value": "off"
+            },
+            {
+              "key": "server_insecure",
+              "value": "off"
+            },
+            {
+              "key": "server_starttls",
+              "value": "off"
+            },
+            {
+              "key": "lookup_bind_dn",
+              "value": ""
+            },
+            {
+              "key": "lookup_bind_password",
+              "value": ""
+            }
+          ]
+        },
+        "identity_openid": {
+          "_": [
+            {
+              "key": "config_url",
+              "value": ""
+            },
+            {
+              "key": "client_id",
+              "value": ""
+            },
+            {
+              "key": "client_secret",
+              "value": ""
+            },
+            {
+              "key": "claim_name",
+              "value": "policy"
+            },
+            {
+              "key": "claim_prefix",
+              "value": ""
+            },
+            {
+              "key": "redirect_uri",
+              "value": ""
+            },
+            {
+              "key": "scopes",
+              "value": ""
+            },
+            {
+              "key": "jwks_url",
+              "value": ""
+            }
+          ]
+        },
+        "logger_webhook": {
+          "_": [
+            {
+              "key": "enable",
+              "value": "off"
+            },
+            {
+              "key": "endpoint",
+              "value": ""
+            },
+            {
+              "key": "auth_token",
+              "value": ""
+            }
+          ]
+        },
+        "notify_amqp": {
+          "_": [
+            {
+              "key": "enable",
+              "value": "off"
+            },
+            {
+              "key": "url",
+              "value": ""
+            },
+            {
+              "key": "exchange",
+              "value": ""
+            },
+            {
+              "key": "exchange_type",
+              "value": ""
+            },
+            {
+              "key": "routing_key",
+              "value": ""
+            },
+            {
+              "key": "mandatory",
+              "value": "off"
+            },
+            {
+              "key": "durable",
+              "value": "off"
+            },
+            {
+              "key": "no_wait",
+              "value": "off"
+            },
+            {
+              "key": "internal",
+              "value": "off"
+            },
+            {
+              "key": "auto_deleted",
+              "value": "off"
+            },
+            {
+              "key": "delivery_mode",
+              "value": "0"
+            },
+            {
+              "key": "publisher_confirms",
+              "value": "off"
+            },
+            {
+              "key": "queue_limit",
+              "value": "0"
+            },
+            {
+              "key": "queue_dir",
+              "value": ""
+            }
+          ]
+        },
+        "notify_elasticsearch": {
+          "_": [
+            {
+              "key": "enable",
+              "value": "off"
+            },
+            {
+              "key": "url",
+              "value": ""
+            },
+            {
+              "key": "format",
+              "value": "namespace"
+            },
+            {
+              "key": "index",
+              "value": ""
+            },
+            {
+              "key": "queue_dir",
+              "value": ""
+            },
+            {
+              "key": "queue_limit",
+              "value": "0"
+            },
+            {
+              "key": "username",
+              "value": ""
+            },
+            {
+              "key": "password",
+              "value": ""
+            }
+          ]
+        },
+        "notify_kafka": {
+          "_": [
+            {
+              "key": "enable",
+              "value": "off"
+            },
+            {
+              "key": "topic",
+              "value": ""
+            },
+            {
+              "key": "brokers",
+              "value": ""
+            },
+            {
+              "key": "sasl_username",
+              "value": ""
+            },
+            {
+              "key": "sasl_password",
+              "value": ""
+            },
+            {
+              "key": "sasl_mechanism",
+              "value": "plain"
+            },
+            {
+              "key": "client_tls_cert",
+              "value": ""
+            },
+            {
+              "key": "client_tls_key",
+              "value": ""
+            },
+            {
+              "key": "tls_client_auth",
+              "value": "0"
+            },
+            {
+              "key": "sasl",
+              "value": "off"
+            },
+            {
+              "key": "tls",
+              "value": "off"
+            },
+            {
+              "key": "tls_skip_verify",
+              "value": "off"
+            },
+            {
+              "key": "queue_limit",
+              "value": "0"
+            },
+            {
+              "key": "queue_dir",
+              "value": ""
+            },
+            {
+              "key": "version",
+              "value": ""
+            }
+          ]
+        },
+        "notify_mqtt": {
+          "_": [
+            {
+              "key": "enable",
+              "value": "off"
+            },
+            {
+              "key": "broker",
+              "value": ""
+            },
+            {
+              "key": "topic",
+              "value": ""
+            },
+            {
+              "key": "password",
+              "value": ""
+            },
+            {
+              "key": "username",
+              "value": ""
+            },
+            {
+              "key": "qos",
+              "value": "0"
+            },
+            {
+              "key": "keep_alive_interval",
+              "value": "0s"
+            },
+            {
+              "key": "reconnect_interval",
+              "value": "0s"
+            },
+            {
+              "key": "queue_dir",
+              "value": ""
+            },
+            {
+              "key": "queue_limit",
+              "value": "0"
+            }
+          ]
+        },
+        "notify_mysql": {
+          "_": [
+            {
+              "key": "enable",
+              "value": "off"
+            },
+            {
+              "key": "format",
+              "value": "namespace"
+            },
+            {
+              "key": "dsn_string",
+              "value": ""
+            },
+            {
+              "key": "table",
+              "value": ""
+            },
+            {
+              "key": "queue_dir",
+              "value": ""
+            },
+            {
+              "key": "queue_limit",
+              "value": "0"
+            },
+            {
+              "key": "max_open_connections",
+              "value": "2"
+            }
+          ]
+        },
+        "notify_nats": {
+          "_": [
+            {
+              "key": "enable",
+              "value": "off"
+            },
+            {
+              "key": "address",
+              "value": ""
+            },
+            {
+              "key": "subject",
+              "value": ""
+            },
+            {
+              "key": "username",
+              "value": ""
+            },
+            {
+              "key": "password",
+              "value": ""
+            },
+            {
+              "key": "token",
+              "value": ""
+            },
+            {
+              "key": "tls",
+              "value": "off"
+            },
+            {
+              "key": "tls_skip_verify",
+              "value": "off"
+            },
+            {
+              "key": "cert_authority",
+              "value": ""
+            },
+            {
+              "key": "client_cert",
+              "value": ""
+            },
+            {
+              "key": "client_key",
+              "value": ""
+            },
+            {
+              "key": "ping_interval",
+              "value": "0"
+            },
+            {
+              "key": "streaming",
+              "value": "off"
+            },
+            {
+              "key": "streaming_async",
+              "value": "off"
+            },
+            {
+              "key": "streaming_max_pub_acks_in_flight",
+              "value": "0"
+            },
+            {
+              "key": "streaming_cluster_id",
+              "value": ""
+            },
+            {
+              "key": "queue_dir",
+              "value": ""
+            },
+            {
+              "key": "queue_limit",
+              "value": "0"
+            }
+          ]
+        },
+        "notify_nsq": {
+          "_": [
+            {
+              "key": "enable",
+              "value": "off"
+            },
+            {
+              "key": "nsqd_address",
+              "value": ""
+            },
+            {
+              "key": "topic",
+              "value": ""
+            },
+            {
+              "key": "tls",
+              "value": "off"
+            },
+            {
+              "key": "tls_skip_verify",
+              "value": "off"
+            },
+            {
+              "key": "queue_dir",
+              "value": ""
+            },
+            {
+              "key": "queue_limit",
+              "value": "0"
+            }
+          ]
+        },
+        "notify_postgres": {
+          "_": [
+            {
+              "key": "enable",
+              "value": "off"
+            },
+            {
+              "key": "format",
+              "value": "namespace"
+            },
+            {
+              "key": "connection_string",
+              "value": ""
+            },
+            {
+              "key": "table",
+              "value": ""
+            },
+            {
+              "key": "queue_dir",
+              "value": ""
+            },
+            {
+              "key": "queue_limit",
+              "value": "0"
+            },
+            {
+              "key": "max_open_connections",
+              "value": "2"
+            }
+          ]
+        },
+        "notify_redis": {
+          "_": [
+            {
+              "key": "enable",
+              "value": "off"
+            },
+            {
+              "key": "format",
+              "value": "namespace"
+            },
+            {
+              "key": "address",
+              "value": ""
+            },
+            {
+              "key": "key",
+              "value": ""
+            },
+            {
+              "key": "password",
+              "value": ""
+            },
+            {
+              "key": "queue_dir",
+              "value": ""
+            },
+            {
+              "key": "queue_limit",
+              "value": "0"
+            }
+          ]
+        },
+        "notify_webhook": {
+          "_": [
+            {
+              "key": "enable",
+              "value": "off"
+            },
+            {
+              "key": "endpoint",
+              "value": ""
+            },
+            {
+              "key": "auth_token",
+              "value": ""
+            },
+            {
+              "key": "queue_limit",
+              "value": "0"
+            },
+            {
+              "key": "queue_dir",
+              "value": ""
+            },
+            {
+              "key": "client_cert",
+              "value": ""
+            },
+            {
+              "key": "client_key",
+              "value": ""
+            }
+          ]
+        },
+        "policy_opa": {
+          "_": [
+            {
+              "key": "url",
+              "value": ""
+            },
+            {
+              "key": "auth_token",
+              "value": ""
+            }
+          ]
+        },
+        "region": {
+          "_": [
+            {
+              "key": "name",
+              "value": "sefaz-ms-cotin-rack-1"
+            },
+            {
+              "key": "comment",
+              "value": "Região de disponibilidade 1 da COTIN na SEFAZ-MS."
+            }
+          ]
+        },
+        "scanner": {
+          "_": [
+            {
+              "key": "delay",
+              "value": "10"
+            },
+            {
+              "key": "max_wait",
+              "value": "15s"
+            },
+            {
+              "key": "cycle",
+              "value": "1m"
+            }
+          ]
+        },
+        "storage_class": {
+          "_": [
+            {
+              "key": "standard",
+              "value": ""
+            },
+            {
+              "key": "rrs",
+              "value": "EC:2"
+            }
+          ]
+        }
+      }
+    },
+    "info": {
+      "mode": "online",
+      "region": "sefaz-ms-cotin-rack-1",
+      "deploymentID": "ad80969b-e93a-44ce-9607-75bd1ff3af2a",
+      "buckets": {
+        "count": 1
+      },
+      "objects": {
+        "count": 2
+      },
+      "usage": {
+        "size": 709911
+      },
+      "services": {
+        "kms": {
+          "status": "disabled"
+        },
+        "ldap": {}
+      },
+      "backend": {
+        "backendType": "Erasure",
+        "onlineDisks": 4,
+        "rrSCParity": 2,
+        "standardSCParity": 2
+      },
+      "servers": [
+        {
+          "state": "online",
+          "endpoint": "pool1.server1:9000",
+          "uptime": 8977,
+          "version": "2021-08-05T22:01:19Z",
+          "commitID": "6c0757eea6ec3ca4b6f4635834b967ddbf98af9e",
+          "network": {
+            "pool1.server1:9000": "online",
+            "pool1.server2:9000": "online"
+          },
+          "drives": [
+            {
+              "endpoint": "http://pool1.server1:9000/data1",
+              "path": "/data1",
+              "state": "ok",
+              "uuid": "6853af40-b6cb-419b-b1c6-149be4d41c73",
+              "totalspace": 255399227392,
+              "usedspace": 238844325888,
+              "availspace": 16554901504,
+              "metrics": {
+                "apiLatencies": {
+                  "AppendFile": "0s",
+                  "CheckParts": "0s",
+                  "CreateFile": "76.496222ms",
+                  "Delete": "0s",
+                  "DeleteVersion": "322.538µs",
+                  "DeleteVersions": "0s",
+                  "DeleteVol": "0s",
+                  "ListDir": "0s",
+                  "ListVols": "146.719µs",
+                  "MakeVol": "0s",
+                  "MakeVolBulk": "182.408µs",
+                  "ReadAll": "415.909µs",
+                  "ReadFile": "0s",
+                  "ReadFileStream": "0s",
+                  "ReadVersion": "17.732556ms",
+                  "RenameData": "33.958587ms",
+                  "RenameFile": "0s",
+                  "StatVol": "42.162µs",
+                  "UpdateMetadata": "0s",
+                  "VerifyFile": "0s",
+                  "WalkDir": "349.397µs",
+                  "WriteAll": "0s",
+                  "WriteMetadata": "0s",
+                  "storageStatInfoFile": "0s"
+                },
+                "apiCalls": {
+                  "AppendFile": 0,
+                  "CheckParts": 0,
+                  "CreateFile": 298,
+                  "Delete": 0,
+                  "DeleteVersion": 6,
+                  "DeleteVersions": 0,
+                  "DeleteVol": 0,
+                  "ListDir": 0,
+                  "ListVols": 1047,
+                  "MakeVol": 0,
+                  "MakeVolBulk": 1,
+                  "ReadAll": 2,
+                  "ReadFile": 0,
+                  "ReadFileStream": 0,
+                  "ReadVersion": 497,
+                  "RenameData": 596,
+                  "RenameFile": 0,
+                  "StatVol": 780,
+                  "UpdateMetadata": 0,
+                  "VerifyFile": 0,
+                  "WalkDir": 241,
+                  "WriteAll": 0,
+                  "WriteMetadata": 0,
+                  "storageStatInfoFile": 0
+                }
+              },
+              "free_inodes": 14995123,
+              "pool_index": 0,
+              "set_index": 0,
+              "disk_index": 0
+            },
+            {
+              "endpoint": "http://pool1.server3:9000/data2",
+              "path": "/data2",
+              "state": "ok",
+              "uuid": "6483eca3-e8d6-4d79-a401-d3c8fbfcbeca",
+              "totalspace": 255399227392,
+              "usedspace": 238844325888,
+              "availspace": 16554901504,
+              "metrics": {
+                "apiLatencies": {
+                  "AppendFile": "0s",
+                  "CheckParts": "0s",
+                  "CreateFile": "40.69255ms",
+                  "Delete": "0s",
+                  "DeleteVersion": "273.191µs",
+                  "DeleteVersions": "0s",
+                  "DeleteVol": "0s",
+                  "ListDir": "0s",
+                  "ListVols": "140.598µs",
+                  "MakeVol": "0s",
+                  "MakeVolBulk": "167.338µs",
+                  "ReadAll": "373.778µs",
+                  "ReadFile": "0s",
+                  "ReadFileStream": "0s",
+                  "ReadVersion": "18.407105ms",
+                  "RenameData": "34.075972ms",
+                  "RenameFile": "0s",
+                  "StatVol": "50.778µs",
+                  "UpdateMetadata": "0s",
+                  "VerifyFile": "0s",
+                  "WalkDir": "1.543562ms",
+                  "WriteAll": "0s",
+                  "WriteMetadata": "0s",
+                  "storageStatInfoFile": "0s"
+                },
+                "apiCalls": {
+                  "AppendFile": 0,
+                  "CheckParts": 0,
+                  "CreateFile": 298,
+                  "Delete": 0,
+                  "DeleteVersion": 6,
+                  "DeleteVersions": 0,
+                  "DeleteVol": 0,
+                  "ListDir": 0,
+                  "ListVols": 1047,
+                  "MakeVol": 0,
+                  "MakeVolBulk": 1,
+                  "ReadAll": 2,
+                  "ReadFile": 0,
+                  "ReadFileStream": 0,
+                  "ReadVersion": 497,
+                  "RenameData": 596,
+                  "RenameFile": 0,
+                  "StatVol": 780,
+                  "UpdateMetadata": 0,
+                  "VerifyFile": 0,
+                  "WalkDir": 241,
+                  "WriteAll": 0,
+                  "WriteMetadata": 0,
+                  "storageStatInfoFile": 0
+                }
+              },
+              "free_inodes": 14995123,
+              "pool_index": 0,
+              "set_index": 0,
+              "disk_index": 2
+            }
+          ],
+          "poolNumber": 1,
+          "mem_stats": {
+            "Alloc": 312568656,
+            "TotalAlloc": 3018412248,
+            "Mallocs": 7595019,
+            "Frees": 7286086,
+            "HeapAlloc": 312568656
+          }
+        },
+        {
+          "state": "online",
+          "endpoint": "pool1.server2:9000",
+          "uptime": 8977,
+          "version": "2021-08-05T22:01:19Z",
+          "commitID": "6c0757eea6ec3ca4b6f4635834b967ddbf98af9e",
+          "network": {
+            "pool1.server1:9000": "online",
+            "pool1.server2:9000": "online"
+          },
+          "drives": [
+            {
+              "endpoint": "http://pool1.server2:9000/data1",
+              "path": "/data1",
+              "state": "ok",
+              "uuid": "366e0375-3487-4b2b-9144-5d76365ddaa5",
+              "totalspace": 255399227392,
+              "usedspace": 238844325888,
+              "availspace": 16554901504,
+              "metrics": {
+                "apiLatencies": {
+                  "AppendFile": "0s",
+                  "CheckParts": "0s",
+                  "CreateFile": "0s",
+                  "Delete": "0s",
+                  "DeleteVersion": "92.916µs",
+                  "DeleteVersions": "0s",
+                  "DeleteVol": "0s",
+                  "ListDir": "0s",
+                  "ListVols": "96.641µs",
+                  "MakeVol": "0s",
+                  "MakeVolBulk": "48.433µs",
+                  "ReadAll": "111.534µs",
+                  "ReadFile": "0s",
+                  "ReadFileStream": "0s",
+                  "ReadVersion": "355.944µs",
+                  "RenameData": "2.712872ms",
+                  "RenameFile": "0s",
+                  "StatVol": "33.185µs",
+                  "UpdateMetadata": "0s",
+                  "VerifyFile": "0s",
+                  "WalkDir": "1.359008ms",
+                  "WriteAll": "0s",
+                  "WriteMetadata": "0s",
+                  "storageStatInfoFile": "0s"
+                },
+                "apiCalls": {
+                  "AppendFile": 0,
+                  "CheckParts": 0,
+                  "CreateFile": 0,
+                  "Delete": 0,
+                  "DeleteVersion": 1,
+                  "DeleteVersions": 0,
+                  "DeleteVol": 0,
+                  "ListDir": 0,
+                  "ListVols": 910,
+                  "MakeVol": 0,
+                  "MakeVolBulk": 1,
+                  "ReadAll": 2,
+                  "ReadFile": 0,
+                  "ReadFileStream": 0,
+                  "ReadVersion": 204,
+                  "RenameData": 4,
+                  "RenameFile": 0,
+                  "StatVol": 510,
+                  "UpdateMetadata": 0,
+                  "VerifyFile": 0,
+                  "WalkDir": 249,
+                  "WriteAll": 0,
+                  "WriteMetadata": 0,
+                  "storageStatInfoFile": 0
+                }
+              },
+              "free_inodes": 14995123,
+              "pool_index": 0,
+              "set_index": 0,
+              "disk_index": 1
+            },
+            {
+              "endpoint": "http://pool1.server4:9000/data2",
+              "path": "/data2",
+              "state": "ok",
+              "uuid": "8894ef57-7b9c-431e-8554-d547759ce0f5",
+              "totalspace": 255399227392,
+              "usedspace": 238844325888,
+              "availspace": 16554901504,
+              "metrics": {
+                "apiLatencies": {
+                  "AppendFile": "0s",
+                  "CheckParts": "0s",
+                  "CreateFile": "0s",
+                  "Delete": "0s",
+                  "DeleteVersion": "128.971µs",
+                  "DeleteVersions": "0s",
+                  "DeleteVol": "0s",
+                  "ListDir": "0s",
+                  "ListVols": "119.678µs",
+                  "MakeVol": "0s",
+                  "MakeVolBulk": "50.859µs",
+                  "ReadAll": "451.406µs",
+                  "ReadFile": "0s",
+                  "ReadFileStream": "0s",
+                  "ReadVersion": "420.784µs",
+                  "RenameData": "2.751278ms",
+                  "RenameFile": "0s",
+                  "StatVol": "33.211µs",
+                  "UpdateMetadata": "0s",
+                  "VerifyFile": "0s",
+                  "WalkDir": "1.581253ms",
+                  "WriteAll": "0s",
+                  "WriteMetadata": "0s",
+                  "storageStatInfoFile": "0s"
+                },
+                "apiCalls": {
+                  "AppendFile": 0,
+                  "CheckParts": 0,
+                  "CreateFile": 0,
+                  "Delete": 0,
+                  "DeleteVersion": 1,
+                  "DeleteVersions": 0,
+                  "DeleteVol": 0,
+                  "ListDir": 0,
+                  "ListVols": 910,
+                  "MakeVol": 0,
+                  "MakeVolBulk": 1,
+                  "ReadAll": 2,
+                  "ReadFile": 0,
+                  "ReadFileStream": 0,
+                  "ReadVersion": 204,
+                  "RenameData": 4,
+                  "RenameFile": 0,
+                  "StatVol": 510,
+                  "UpdateMetadata": 0,
+                  "VerifyFile": 0,
+                  "WalkDir": 249,
+                  "WriteAll": 0,
+                  "WriteMetadata": 0,
+                  "storageStatInfoFile": 0
+                }
+              },
+              "free_inodes": 14995123,
+              "pool_index": 0,
+              "set_index": 0,
+              "disk_index": 3
+            }
+          ],
+          "poolNumber": 1,
+          "mem_stats": {
+            "Alloc": 266155088,
+            "TotalAlloc": 2221297168,
+            "Mallocs": 6597524,
+            "Frees": 6468952,
+            "HeapAlloc": 266155088
+          }
+        }
+      ]
+    }
+  }
+}
