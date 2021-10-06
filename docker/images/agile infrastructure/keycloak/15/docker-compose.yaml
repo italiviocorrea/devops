@@ -1,27 +1,142 @@
-version: '2'
+version: "3.6"
+
 services:
+
   postgresql:
     image: docker.io/bitnami/postgresql:11
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
-      - ALLOW_EMPTY_PASSWORD=yes
+      #- ALLOW_EMPTY_PASSWORD=yes
       - POSTGRESQL_USERNAME=bn_keycloak
+      - POSTGRESQL_PASSWORD=senha#123
       - POSTGRESQL_DATABASE=bitnami_keycloak
     volumes:
       - 'postgresql_data:/bitnami/postgresql'
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
-      
-  keycloak:
+
+  keycloak-1:
     image: icorrea/keycloak:15
     volumes:
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - JAVA_OPTS=-server -Xmx512m -XX:MetaspaceSize=1024M -XX:MaxMetaspaceSize=1024m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true -Djboss.as.management.blocking.timeout=3600
+      - KEYCLOAK_CREATE_ADMIN_USER=true
+      - KEYCLOAK_ADMIN_USER=admin
+      - KEYCLOAK_ADMIN_PASSWORD=senha#123
+      - KEYCLOAK_MANAGEMENT_USER=management
+      - KEYCLOAK_MANAGEMENT_PASSWORD=senha#123
+      - KEYCLOAK_DATABASE_HOST=postgresql
+      - KEYCLOAK_DATABASE_PORT=5432
+      - KEYCLOAK_DATABASE_NAME=bitnami_keycloak
+      - KEYCLOAK_DATABASE_USER=bn_keycloak
+      - KEYCLOAK_DATABASE_PASSWORD=senha#123
+      - KEYCLOAK_JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING
+      - 'KEYCLOAK_JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=>java:jboss/datasources/KeycloakDS, initialize_sql=>"CREATE TABLE IF NOT EXISTS JGROUPSPING ( own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, created timestamp default current_timestamp, ping_data BYTEA, constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))"'
+      - KEYCLOAK_CACHE_OWNERS_COUNT=2
+      - KEYCLOAK_AUTH_CACHE_OWNERS_COUNT=2
+      - KEYCLOAK_EXTRA_ARGS=-Dkeycloak.profile.feature.upload_scripts=enabled
+      - KEYCLOAK_ENABLE_STATISTICS=true
+      - KEYCLOAK_PROXY_ADDRESS_FORWARDING=true
+    networks:
+      - keycloak_net
     depends_on:
       - postgresql
     ports:
-      - "8080:8080"
+      - target: 8080 # Porta padrão
+        published: 8080
+        protocol: tcp
+        mode: host
+      - target: 9990 # Porta de administração
+        published: 9990
+        protocol: tcp
+        mode: host
 
+  keycloak-2:
+    image: icorrea/keycloak:15
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - JAVA_OPTS=-server -Xmx512m -XX:MetaspaceSize=1024M -XX:MaxMetaspaceSize=1024m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true -Djboss.as.management.blocking.timeout=3600
+      - KEYCLOAK_CREATE_ADMIN_USER=true
+      - KEYCLOAK_ADMIN_USER=admin
+      - KEYCLOAK_ADMIN_PASSWORD=senha#123
+      - KEYCLOAK_MANAGEMENT_USER=management
+      - KEYCLOAK_MANAGEMENT_PASSWORD=senha#123
+      - KEYCLOAK_DATABASE_HOST=postgresql
+      - KEYCLOAK_DATABASE_PORT=5432
+      - KEYCLOAK_DATABASE_NAME=bitnami_keycloak
+      - KEYCLOAK_DATABASE_USER=bn_keycloak
+      - KEYCLOAK_DATABASE_PASSWORD=senha#123
+      - KEYCLOAK_JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING
+      - 'KEYCLOAK_JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=>java:jboss/datasources/KeycloakDS, initialize_sql=>"CREATE TABLE IF NOT EXISTS JGROUPSPING ( own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, created timestamp default current_timestamp, ping_data BYTEA, constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))"'
+      - KEYCLOAK_CACHE_OWNERS_COUNT=2
+      - KEYCLOAK_AUTH_CACHE_OWNERS_COUNT=2
+      - KEYCLOAK_EXTRA_ARGS=-Dkeycloak.profile.feature.upload_scripts=enabled
+      - KEYCLOAK_ENABLE_STATISTICS=true
+      - KEYCLOAK_PROXY_ADDRESS_FORWARDING=true
+    networks:
+      - keycloak_net
+    depends_on:
+      - postgresql
+    ports:
+      - target: 8080 # Porta padrão
+        published: 8081
+        protocol: tcp
+        mode: host
+      - target: 9990 # Porta de administração
+        published: 9991
+        protocol: tcp
+        mode: host
+
+  keycloak-3:
+    image: icorrea/keycloak:15
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - JAVA_OPTS=-server -Xmx512m -XX:MetaspaceSize=1024M -XX:MaxMetaspaceSize=1024m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true -Djboss.as.management.blocking.timeout=3600
+      - KEYCLOAK_CREATE_ADMIN_USER=true
+      - KEYCLOAK_ADMIN_USER=admin
+      - KEYCLOAK_ADMIN_PASSWORD=senha#123
+      - KEYCLOAK_MANAGEMENT_USER=management
+      - KEYCLOAK_MANAGEMENT_PASSWORD=senha#123
+      - KEYCLOAK_DATABASE_HOST=postgresql
+      - KEYCLOAK_DATABASE_PORT=5432
+      - KEYCLOAK_DATABASE_NAME=bitnami_keycloak
+      - KEYCLOAK_DATABASE_USER=bn_keycloak
+      - KEYCLOAK_DATABASE_PASSWORD=senha#123
+      - KEYCLOAK_JGROUPS_DISCOVERY_PROTOCOL=JDBC_PING
+      - 'KEYCLOAK_JGROUPS_DISCOVERY_PROPERTIES=datasource_jndi_name=>java:jboss/datasources/KeycloakDS, initialize_sql=>"CREATE TABLE IF NOT EXISTS JGROUPSPING ( own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, created timestamp default current_timestamp, ping_data BYTEA, constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))"'
+      - KEYCLOAK_CACHE_OWNERS_COUNT=2
+      - KEYCLOAK_AUTH_CACHE_OWNERS_COUNT=2
+      - KEYCLOAK_EXTRA_ARGS=-Dkeycloak.profile.feature.upload_scripts=enabled
+      - KEYCLOAK_ENABLE_STATISTICS=true
+      - KEYCLOAK_PROXY_ADDRESS_FORWARDING=true
+    networks:
+      - keycloak_net
+    depends_on:
+      - postgresql
+    ports:
+      - target: 8080 # Porta padrão
+        published: 8081
+        protocol: tcp
+        mode: host
+      - target: 9990 # Porta de administração
+        published: 9991
+        protocol: tcp
+        mode: host
+
+networks:
+  keycloak_net:
+    external: true
+    
 volumes:
   postgresql_data:
     driver: local
+        
+              
+
+          

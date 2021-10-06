@@ -15,6 +15,7 @@ EOF
 
 # fontes: https://docs.wildfly.org/23/wildscribe/index.html 
 #         https://www.keycloak.org/docs/latest/server_installation/#cache-configuration
+#         https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/
 # Exemplos de configuração
 # /subsystem=infinispan/cache-container=keycloak/distributed-cache=actionTokens/component=expiration/: write-attribute(name=interval, value=3000000)  # 5 minutos
 # /subsystem=infinispan/cache-container=keycloak/distributed-cache=actionTokens/component=expiration/: write-attribute(name=max-idle, value=90000000) # 24 horas

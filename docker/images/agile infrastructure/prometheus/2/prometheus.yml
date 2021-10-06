@@ -1,0 +1,37 @@
+global:
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  evaluation_interval: 15s
+scrape_configs:
+- job_name: prometheusJob
+  honor_timestamps: true
+  scrape_interval: 5s
+  scrape_timeout: 5s
+  metrics_path: /metrics
+  scheme: http
+  static_configs:
+  - targets:
+    - localhost:9090
+- job_name: d0275-api-nf3e-consulta
+  honor_timestamps: true
+  scrape_interval: 5s
+  scrape_timeout: 5s
+  metrics_path: /d0275/apm/manage/prometheus
+  scheme: http
+  static_configs:
+    - targets: ['192.168.100.197:8275', 'd0275-api-nf3e-consulta-local:8275']
+      labels:
+        group: 'local'  
+
+    - targets: ['d0275-api-nf3e-consulta-dev:8275']
+      labels:
+        group: 'dev'          
+
+    - targets: ['d0275-api-nf3e-consulta-hom:8275']
+      labels:
+        group: 'hom'                  
+        
+    - targets: ['d0275-api-nf3e-consulta-prd:8275']
+      labels:
+        group: 'prd'                  
+        

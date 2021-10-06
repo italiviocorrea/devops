@@ -9,6 +9,7 @@ RUN set -eux; \
     apk del --purge .fetch-deps; \
     rm -rf /var/cache/apk/*; 
 
-#ENV JAVA_HOME=/opt/java/openjdk \
-#    PATH="/opt/java/openjdk/bin:$PATH"
-#CMD ["jshell"]
+ENV JAVA_HOME=/opt/java/openjdk \
+    PATH="/opt/java/openjdk/bin:$PATH"
+CMD ["jshell"]
+
